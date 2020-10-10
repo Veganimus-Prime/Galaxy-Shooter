@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3, _fireMode = 0;
     [SerializeField]
+    private float _thrusterCharge = 100;
+    [SerializeField]
+    private bool _thrusterEnabled = true;
+    [SerializeField]
     private bool _isShieldActive;
     [SerializeField]
     [Header("SCORE")]
@@ -56,10 +60,13 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+        Thrusters();
+       
         if(Input.GetKeyDown(KeyCode.Space)&& Time.time > _canFire)
         {
             Shoot();
         }
+
     }
     void Movement()
     {
@@ -69,6 +76,38 @@ public class Player : MonoBehaviour
         transform.Translate(direction * _speed * Time.deltaTime);
         ScreenWrap();
     }
+    void Thrusters()
+    {
+        if (Input.GetKey(KeyCode.LeftShift) && _thrusterEnabled == true)
+        {
+            _speed = 8;
+            _thrusterCharge--;
+        }
+        else
+        {
+            _speed = 5;
+        }
+        if(_thrusterCharge <= 0)
+        {
+            _thrusterEnabled = false;
+        }
+       /* else if (_thrusterCharge <= 0)
+        {
+            if(_thrusterCharge <0)
+            {
+                _thrusterCharge = 0;
+            }
+            _thrusterEnabled = false;
+            _speed = 5;
+            StartCoroutine(ThrusterCoolDown());
+        }*/
+    }
+    /*IEnumerator ThrusterCoolDown()
+    {
+        yield return new WaitForSeconds(10f);
+        _thrusterEnabled = true;
+        _thrusterCharge = 100;
+    }*/
     void Shoot()
     {
         _canFire = Time.time + _fireRate;
@@ -169,5 +208,5 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-        
+   
 }
