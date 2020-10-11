@@ -133,6 +133,7 @@ public class Player : MonoBehaviour
         if (_isShieldActive == false)
         {
             _lives--;
+            CameraShake.Instance.TriggerShake();
             switch(_lives)
             {
                 case 0:
