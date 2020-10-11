@@ -21,13 +21,33 @@ public class Laser : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Enemy"|| other.tag== "Asteroid")
-        {
-            Destroy(this.gameObject);
-            if (this.transform.parent != null)
-            {
-                Destroy(transform.parent.gameObject);
-            }
-        }
+      switch(Player.Instance._fireMode)
+      {
+            case 0://Normal
+                if (other.tag == "Enemy" || other.tag == "Asteroid")
+                {
+                    Destroy(this.gameObject);
+                }
+                    break;
+            case 1://TripleShot
+                if(other.tag == "Enemy")
+                {
+                    Destroy(this.gameObject);
+                    if (this.transform.parent != null)
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
+                }
+                break;
+            case 2://IceBeam
+                if(other.tag == "Enemy")
+                {
+                    Destroy(this.gameObject);
+                }
+                break;
+
+      }
+            
+        
     }
 }

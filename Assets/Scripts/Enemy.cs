@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     private Animator _anim;
     private AudioSource _audio;
+    private SpriteRenderer _sprite;
     [SerializeField]
     private AudioClip _explosionClip;
     void Start()
@@ -25,6 +26,11 @@ public class Enemy : MonoBehaviour
         if(_audio == null)
         {
             Debug.LogError("AudioSource is NULL!");
+        }
+        _sprite = GetComponent<SpriteRenderer>();
+        if(_sprite == null)
+        {
+            Debug.LogError("Sprite Renderer is NULL!");
         }
         StartCoroutine(EnemyFireRoutine());
     }
@@ -40,6 +46,7 @@ public class Enemy : MonoBehaviour
     {
         if(other.tag == "Player"|| other.tag == "Laser")
         {
+            StopCoroutine(EnemyFireRoutine());
             _anim.SetTrigger("OnEnemyDeath");
             _audio.PlayOneShot(_explosionClip);
             _speed = 0;
@@ -50,6 +57,12 @@ public class Enemy : MonoBehaviour
             {
                 Player.Instance.Damage();
             }
+        }
+        else if (other.tag == "Ice Beam")
+        {
+            StopCoroutine(EnemyFireRoutine());
+            _speed = 0;
+            _sprite.color = Color.cyan;
         }
     }
     IEnumerator EnemyFireRoutine()

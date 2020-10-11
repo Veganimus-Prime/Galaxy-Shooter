@@ -21,8 +21,10 @@ public class SpawnManager : MonoBehaviour
 
     public bool stopSpawning = true;
     [SerializeField]
-    private GameObject[] _powerUps = new GameObject[3];
-    
+    private GameObject[] _powerUps = new GameObject[4];
+    [SerializeField]
+    private GameObject[] _rarePowerUps = new GameObject[2];
+
     void Awake()
     {
         _instance = this;
@@ -40,6 +42,7 @@ public class SpawnManager : MonoBehaviour
         stopSpawning = false;
         StartCoroutine(SpawnRoutine());
         StartCoroutine(PowerUpRoutine());
+        StartCoroutine(RarePowerUpRoutine());
     }
     IEnumerator SpawnRoutine()
     {
@@ -58,6 +61,15 @@ public class SpawnManager : MonoBehaviour
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 6, 0);
             Instantiate(_powerUps[(Random.Range(0,3))], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5, 7));
+        }
+    }
+    IEnumerator RarePowerUpRoutine()
+    {
+        while (stopSpawning == false)
+        {
+            Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 6, 0);
+            Instantiate(_rarePowerUps[(Random.Range(0, 1))], posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(20, 30));
         }
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1479082863}
   - component: {fileID: 4065195829644596725}
   - component: {fileID: 1322065963137962108}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: TripleShotPowerUp
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
@@ -163,3 +163,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e43d6fcd04e56e44a8f4d1f5cf4437a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _powerUpID: 0

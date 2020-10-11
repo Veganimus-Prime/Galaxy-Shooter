@@ -280,6 +280,10 @@ MonoBehaviour:
   - {fileID: 6227940003390595467, guid: 02f2c05f7eab4cf4d8a45118f8e1bdfa, type: 3}
   - {fileID: 5723538669142988510, guid: b3ee04fc4826508488244a1ccdd7e0a5, type: 3}
   - {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d, type: 3}
+  - {fileID: 2256958646531185217, guid: f666c8cbb69a05e4eb3b8d5b4460dc54, type: 3}
+  _rarePowerUps:
+  - {fileID: 2256958646531185217, guid: f666c8cbb69a05e4eb3b8d5b4460dc54, type: 3}
+  - {fileID: 2256958646531185217, guid: f666c8cbb69a05e4eb3b8d5b4460dc54, type: 3}
 --- !u!4 &531470420
 Transform:
   m_ObjectHideFlags: 0
@@ -977,12 +981,15 @@ MonoBehaviour:
     type: 3}
   _tripleShotPrefab: {fileID: 1270690530218070096, guid: 6ed4d318cba28fe47a3bee93b7c819b2,
     type: 3}
+  _iceBeamPrefab: {fileID: 5216606996382145091, guid: 9069992ec20749f4b8c7e04967d0e591,
+    type: 3}
   _shield: {fileID: 947630329}
   _laserOffset: {x: 0, y: 1.05, z: 0}
   _tripleShotOffset: {x: 0, y: -0.5, z: 0}
   _fireRate: 0.25
   _lives: 3
-  _fireMode: 0
+  _thrusterCharge: 100
+  _thrusterEnabled: 1
   _isShieldActive: 0
   _playerScore: 0
   _rightDamage: {fileID: 1227742248}
@@ -992,6 +999,7 @@ MonoBehaviour:
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _powerUpClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _fireMode: 0
 --- !u!212 &1382354880
 SpriteRenderer:
   m_ObjectHideFlags: 0

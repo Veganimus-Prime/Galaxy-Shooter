@@ -17,13 +17,16 @@ public class Player : MonoBehaviour
         }
     }
     [SerializeField]
-    private float _speed = 5;
+    private int _speed;
+    private int _normalSpeed = 5;
+    private int _boostSpeed = 10;
+    private bool _speedBoostOn = false;
     private float _vBoundTop = 0f;
     private float _vBoundBottom = -4f;
     private float _hBoundRight = 9.3f;
     private float _hBoundLeft = -9.3f;
     [SerializeField]
-    private GameObject _laserPrefab, _tripleShotPrefab, _shield;
+    private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab, _shield;
     [SerializeField]
     private Vector3 _laserOffset = new Vector3(0,0.5f,0);
     [SerializeField]
@@ -32,7 +35,7 @@ public class Player : MonoBehaviour
     private float _fireRate = 0.5f;
     private float _canFire = -1.0f;
     [SerializeField]
-    private int _lives = 3, _fireMode = 0;
+    private int _lives = 3;
     [SerializeField]
     private float _thrusterCharge = 100;
     [SerializeField]
@@ -47,6 +50,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioClip _laserClip, _powerUpClip, _explosionClip;
     private AudioSource _audio;
+    public int _fireMode = 0;
     private void Awake()
     {
         _instance = this;
@@ -80,34 +84,19 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftShift) && _thrusterEnabled == true)
         {
-            _speed = 8;
+            _speed = _boostSpeed;
             _thrusterCharge--;
         }
-        else
+        else if(_speedBoostOn == false)
         {
-            _speed = 5;
+            _speed = _normalSpeed;
         }
         if(_thrusterCharge <= 0)
         {
             _thrusterEnabled = false;
         }
-       /* else if (_thrusterCharge <= 0)
-        {
-            if(_thrusterCharge <0)
-            {
-                _thrusterCharge = 0;
-            }
-            _thrusterEnabled = false;
-            _speed = 5;
-            StartCoroutine(ThrusterCoolDown());
-        }*/
     }
-    /*IEnumerator ThrusterCoolDown()
-    {
-        yield return new WaitForSeconds(10f);
-        _thrusterEnabled = true;
-        _thrusterCharge = 100;
-    }*/
+   
     void Shoot()
     {
         _canFire = Time.time + _fireRate;
@@ -119,6 +108,11 @@ public class Player : MonoBehaviour
             case 1:
                 Instantiate(_tripleShotPrefab, transform.position + _tripleShotOffset, Quaternion.identity);
                 break;
+            case 2:
+                Instantiate(_iceBeamPrefab, transform.position + _laserOffset, Quaternion.identity);
+                break;
+        //Ice Beam that freezes enemy for 3 seconds
+        //Blue laser, turns enemy blue
         }
         _audio.PlayOneShot(_laserClip, 10);
     }
@@ -156,17 +150,22 @@ public class Player : MonoBehaviour
         _audio.PlayOneShot(_powerUpClip);
         switch (powerUpID)
         {
-            case 0:
+            case 0://TripleShot
                 _fireMode = 1;
                 StartCoroutine(PowerUpCooldown(0));
                 break;
-            case 1:
-                _speed += 2;
+            case 1://SpeedBoost
+                _speed = _boostSpeed;
+                _speedBoostOn = true;
                 StartCoroutine(PowerUpCooldown(1));
                 break;
-            case 2:
+            case 2://Shield
                 _isShieldActive = true;
                 _shield.SetActive(true);
+                break;
+            case 3://IceBeam
+                _fireMode = 2;
+                StartCoroutine(PowerUpCooldown(2));
                 break;
             default:
                 Debug.Log("Default Power Up ID");
@@ -195,13 +194,18 @@ public class Player : MonoBehaviour
     {
         switch (powerUpID)
         {
-            case 0:
+            case 0://TripleShot
                 yield return new WaitForSeconds(5f);
                 _fireMode = 0;
                 break;
-            case 1:
+            case 1://SpeedBoost
                 yield return new WaitForSeconds(5f);
-                _speed -= 2;
+                _speed = _normalSpeed;
+                _speedBoostOn = false;
+                break;
+            case 2://IceBeam
+                yield return new WaitForSeconds(5f);
+                _fireMode = 0;
                 break;
             default:
                 Debug.Log("Default Power Up ID");

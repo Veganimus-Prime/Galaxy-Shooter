@@ -8,6 +8,7 @@ TagManager:
   - Laser
   - PowerUp
   - Asteroid
+  - Ice Beam
   layers:
   - Default
   - TransparentFX
@@ -20,10 +21,10 @@ TagManager:
   - background
   - foreground
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - PowerUp
+  - FX
   - 
   - 
   - 
