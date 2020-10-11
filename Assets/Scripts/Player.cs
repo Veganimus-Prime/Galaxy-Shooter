@@ -24,7 +24,8 @@ public class Player : MonoBehaviour
     private int _boostSpeed = 10;
     private bool _speedBoostOn = false;
     [SerializeField]
-    private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab, _shield;
+    private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab;
+    public GameObject _shield;
     private Vector3 _laserOffset = new Vector3(0,0.5f,0);
     private Vector3 _tripleShotOffset = new Vector3(0, -0.5f, 0);
     private float _fireRate = 0.5f, _canFire = -1.0f;
@@ -34,8 +35,8 @@ public class Player : MonoBehaviour
     private float _thrusterCharge = 100;
     [SerializeField]
     private bool _thrusterEnabled = true;
-    [SerializeField]
-    private bool _isShieldActive;
+    
+    public bool _isShieldActive;
     [SerializeField]
     [Header("SCORE")]
     private int _playerScore;
@@ -152,8 +153,7 @@ public class Player : MonoBehaviour
         }
         else if(_isShieldActive == true)
         {
-            _isShieldActive = false;
-            _shield.SetActive(false);
+            Shield.Instance.ShieldHit();
         }
     }
     void Heal()
@@ -187,6 +187,8 @@ public class Player : MonoBehaviour
             case 2://Shield
                 _isShieldActive = true;
                 _shield.SetActive(true);
+                Shield.Instance.shieldHP = 4;
+                Shield.Instance.ShieldHit();
                 break;
             case 3://IceBeam
                 _fireMode = 2;
