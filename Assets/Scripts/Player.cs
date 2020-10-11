@@ -156,6 +156,20 @@ public class Player : MonoBehaviour
             _shield.SetActive(false);
         }
     }
+    void Heal()
+    {
+        _lives++;
+        switch(_lives)
+        {
+            case 2:
+                _leftDamage.SetActive(false);
+                break;
+            case 3:
+                _rightDamage.SetActive(false);
+                break;
+        }
+        UIManager.Instance.UpdateLives(_lives);
+    }
     public void PowerUp(int powerUpID)
     {
         _audio.PlayOneShot(_powerUpClip);
@@ -177,6 +191,16 @@ public class Player : MonoBehaviour
             case 3://IceBeam
                 _fireMode = 2;
                 StartCoroutine(PowerUpCooldown(2));
+                break;
+            case 4: //+1 Life
+                if(_lives <3)
+                {
+                    Heal();
+                }
+                else
+                {
+                    return;
+                }
                 break;
             default:
                 Debug.Log("Default Power Up ID");
