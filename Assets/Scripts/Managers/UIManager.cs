@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     }
     public Text scoreText;
     public Text ammoText;
+    public Text thrusterText;
+    public bool thrusterCharging;
     [SerializeField]
     private Image _livesImg;
     private int _currentScore;
@@ -59,12 +61,36 @@ public class UIManager : MonoBehaviour
         {
             ammoText.color = Color.red;
         }
+        else if(ammoCount >=15)
+        {
+            ammoText.text = "Ammo:MAX";
+            ammoText.color = Color.green;
+        }
         else
         {
             ammoText.color = Color.white;
         }
     }
-    
+    public void UpdateThrusterCharge(int thrusterCharge)
+    {
+        thrusterText.text = "Thrusters: " + thrusterCharge;
+        if(thrusterCharge == 0)
+        {
+            thrusterText.color = Color.red;
+        }
+        else if(thrusterCharge == 100)
+        {
+            thrusterText.color = Color.green;
+        }
+        else if(thrusterCharging == true)
+        {
+            thrusterText.color = Color.yellow;
+        }
+        else
+        {
+            thrusterText.color = Color.white;
+        }
+    }
    public IEnumerator GameOverFlicker()
     {
         while (true)

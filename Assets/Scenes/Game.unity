@@ -278,12 +278,12 @@ MonoBehaviour:
   stopSpawning: 0
   _powerUps:
   - {fileID: 6227940003390595467, guid: 02f2c05f7eab4cf4d8a45118f8e1bdfa, type: 3}
-  - {fileID: 5723538669142988510, guid: b3ee04fc4826508488244a1ccdd7e0a5, type: 3}
-  - {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d, type: 3}
   - {fileID: 5780172422776645027, guid: 268a86e993794184c852400092a80507, type: 3}
+  - {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d, type: 3}
   _rarePowerUps:
   - {fileID: 2256958646531185217, guid: f666c8cbb69a05e4eb3b8d5b4460dc54, type: 3}
   - {fileID: 9043545951487681219, guid: e22b5509d6e50da45b192067acabf026, type: 3}
+  - {fileID: 5723538669142988510, guid: b3ee04fc4826508488244a1ccdd7e0a5, type: 3}
 --- !u!4 &531470420
 Transform:
   m_ObjectHideFlags: 0
@@ -329,11 +329,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1774981667}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 57.799988, y: 24.400024}
+  m_AnchoredPosition: {x: 12, y: 25.2}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &619653141
@@ -362,13 +362,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 53
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Ammo: 00'
+  m_Text: 'Ammo: 15'
 --- !u!222 &619653142
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1723,6 +1723,7 @@ RectTransform:
   - {fileID: 1736391619}
   - {fileID: 1985529540}
   - {fileID: 1873332745}
+  - {fileID: 2004910900}
   - {fileID: 619653140}
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -1746,6 +1747,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2073670702}
   ammoText: {fileID: 619653141}
+  thrusterText: {fileID: 2004910901}
   _livesImg: {fileID: 1736391620}
   _livesSprite:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
@@ -1954,6 +1956,84 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2004910899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2004910900}
+  - component: {fileID: 2004910902}
+  - component: {fileID: 2004910901}
+  m_Layer: 5
+  m_Name: Thruster_charge_text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2004910900
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004910899}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1774981667}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 8.200012, y: 88.20001}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &2004910901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004910899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 53
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 53
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 'Thrusters: 100'
+--- !u!222 &2004910902
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004910899}
+  m_CullTransparentMesh: 0
 --- !u!1 &2073670700
 GameObject:
   m_ObjectHideFlags: 0

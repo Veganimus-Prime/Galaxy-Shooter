@@ -26,21 +26,20 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab;
     public GameObject _shield;
-    private Vector3 _laserOffset = new Vector3(0,0.5f,0);
+    private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     private Vector3 _tripleShotOffset = new Vector3(0, -0.5f, 0);
     private float _fireRate = 0.5f, _canFire = -1.0f;
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
-    private float _thrusterCharge = 100;
+    private int _thrusterCharge = 100;
     [SerializeField]
     private bool _thrusterEnabled = true;
-    
     public bool _isShieldActive;
     [SerializeField]
     [Header("SCORE")]
     private int _playerScore;
-    [Header("Damage VFX")]
+    [Header("VFX")]
     [SerializeField]
     private GameObject _rightDamage;
     [SerializeField]
@@ -71,11 +70,15 @@ public class Player : MonoBehaviour
     {
         Movement();
         Thrusters();
-       
-        if(Input.GetKeyDown(KeyCode.Space)&& Time.time > _canFire)
+
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             Shoot();
-        } 
+        }
+        if (_ammoCount > 15)
+        {
+            _ammoCount = 15;
+        }
     }
     void Movement()
     {
@@ -87,18 +90,25 @@ public class Player : MonoBehaviour
     }
     void Thrusters()
     {
+        UIManager.Instance.UpdateThrusterCharge(_thrusterCharge);
+        if (_thrusterCharge > 100)
+        {
+            _thrusterCharge = 100;
+        }
         if (Input.GetKey(KeyCode.LeftShift) && _thrusterEnabled == true)
         {
             _speed = _boostSpeed;
             _thrusterCharge--;
         }
-        else if(_speedBoostOn == false)
+        else if (_speedBoostOn == false)
         {
             _speed = _normalSpeed;
         }
-        if(_thrusterCharge <= 0)
+        if (_thrusterCharge <= 0 && _thrusterEnabled == true)
         {
             _thrusterEnabled = false;
+            UIManager.Instance.thrusterCharging = true;
+            StartCoroutine(ThrusterCooldown());
         }
     }
    
@@ -206,7 +216,10 @@ public class Player : MonoBehaviour
                 }
                 break;
             case 5:
-                _ammoCount += 5;
+                if (_ammoCount < 15)
+                {
+                    _ammoCount += 5;
+                }
                 UIManager.Instance.UpdateAmmoCount(_ammoCount);
                 break;
             default:
@@ -253,6 +266,24 @@ public class Player : MonoBehaviour
                 Debug.Log("Default Power Up ID");
                 break;
         }
+    }
+    IEnumerator ThrusterCooldown()
+    {
+        while (_thrusterCharge < 100)
+        {
+            yield return new WaitForSeconds(5f);
+            _thrusterCharge += 10;
+            UIManager.Instance.UpdateThrusterCharge(_thrusterCharge);
+        }
+        if(_thrusterCharge ==100)
+        {
+            UIManager.Instance.thrusterCharging = false;
+            _thrusterEnabled = true;
+        }
+       
+           
+       
+       
     }
    
 }

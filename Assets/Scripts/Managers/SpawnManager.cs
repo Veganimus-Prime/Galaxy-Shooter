@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
 
     public bool stopSpawning = true;
     [SerializeField]
-    private GameObject[] _powerUps = new GameObject[4];
+    private GameObject[] _powerUps = new GameObject[3];
     [SerializeField]
     private GameObject[] _rarePowerUps = new GameObject[3];
 
@@ -48,7 +48,7 @@ public class SpawnManager : MonoBehaviour
     {
         while (stopSpawning == false)
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 6, 0);
+            Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
             newEnemy.transform.parent = _enemyContainer.transform;
             yield return new WaitForSeconds(5f);
@@ -59,7 +59,7 @@ public class SpawnManager : MonoBehaviour
         while (stopSpawning == false)
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 6, 0);
-            Instantiate(_powerUps[(Random.Range(0,4))], posToSpawn, Quaternion.identity);
+            Instantiate(_powerUps[(Random.Range(0,3))], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(5, 7));
         }
     }
@@ -69,8 +69,8 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(10f);
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 6, 0);
-            Instantiate(_rarePowerUps[(Random.Range(0, 2))], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(20, 30));
+            Instantiate(_rarePowerUps[(Random.Range(0, 3))], posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(15, 20));
         }
     }
 }
