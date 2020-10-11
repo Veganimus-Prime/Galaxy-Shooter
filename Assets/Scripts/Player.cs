@@ -17,23 +17,17 @@ public class Player : MonoBehaviour
         }
     }
     [SerializeField]
+    private int _ammoCount = 15;
+    [SerializeField]
     private int _speed;
     private int _normalSpeed = 5;
     private int _boostSpeed = 10;
     private bool _speedBoostOn = false;
-    private float _vBoundTop = 0f;
-    private float _vBoundBottom = -4f;
-    private float _hBoundRight = 9.3f;
-    private float _hBoundLeft = -9.3f;
     [SerializeField]
     private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab, _shield;
-    [SerializeField]
     private Vector3 _laserOffset = new Vector3(0,0.5f,0);
-    [SerializeField]
     private Vector3 _tripleShotOffset = new Vector3(0, -0.5f, 0);
-    [SerializeField]
-    private float _fireRate = 0.5f;
-    private float _canFire = -1.0f;
+    private float _fireRate = 0.5f, _canFire = -1.0f;
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
@@ -45,10 +39,20 @@ public class Player : MonoBehaviour
     [SerializeField]
     [Header("SCORE")]
     private int _playerScore;
+    [Header("Damage VFX")]
     [SerializeField]
-    private GameObject _rightDamage, _leftDamage, _explosion;
+    private GameObject _rightDamage;
     [SerializeField]
-    private AudioClip _laserClip, _powerUpClip, _explosionClip;
+    private GameObject _leftDamage;
+    [SerializeField]
+    private GameObject _explosion;
+    [Header("Audio Clips")]
+    [SerializeField]
+    private AudioClip _laserClip;
+    [SerializeField]
+    private AudioClip _powerUpClip;
+    [SerializeField]
+    private AudioClip _explosionClip;
     private AudioSource _audio;
     public int _fireMode = 0;
     private void Awake()
@@ -60,6 +64,7 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, -4, 0);
         _audio = GetComponent<AudioSource>();
+        UIManager.Instance.UpdateAmmoCount(_ammoCount);
     }
     void Update()
     {
@@ -69,8 +74,7 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)&& Time.time > _canFire)
         {
             Shoot();
-        }
-
+        } 
     }
     void Movement()
     {
@@ -100,21 +104,28 @@ public class Player : MonoBehaviour
     void Shoot()
     {
         _canFire = Time.time + _fireRate;
-        switch(_fireMode)
+        if (_ammoCount > 0)
         {
-            case 0:
-                Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
-                break;
-            case 1:
-                Instantiate(_tripleShotPrefab, transform.position + _tripleShotOffset, Quaternion.identity);
-                break;
-            case 2:
-                Instantiate(_iceBeamPrefab, transform.position + _laserOffset, Quaternion.identity);
-                break;
-        //Ice Beam that freezes enemy for 3 seconds
-        //Blue laser, turns enemy blue
+            _ammoCount--;
+            UIManager.Instance.UpdateAmmoCount(_ammoCount);
+            switch (_fireMode)
+            {
+                case 0:
+                    Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
+                    break;
+                case 1:
+                    Instantiate(_tripleShotPrefab, transform.position + _tripleShotOffset, Quaternion.identity);
+                    break;
+                case 2:
+                    Instantiate(_iceBeamPrefab, transform.position + _laserOffset, Quaternion.identity);
+                    break;
+            }
+            _audio.PlayOneShot(_laserClip, 10);
         }
-        _audio.PlayOneShot(_laserClip, 10);
+        else
+        {
+            return;
+        }
     }
     public void Damage()
     {
@@ -174,15 +185,15 @@ public class Player : MonoBehaviour
     }
     void ScreenWrap()
     {
-        if (transform.position.x > _hBoundRight)
+        if (transform.position.x > 9.3f)
         {
-            transform.position = new Vector3(_hBoundLeft, transform.position.y, 0);
+            transform.position = new Vector3(-9.3f, transform.position.y, 0);
         }
-        else if (transform.position.x < _hBoundLeft)
+        else if (transform.position.x < -9.3f)
         {
-            transform.position = new Vector3(_hBoundRight, transform.position.y, 0);
+            transform.position = new Vector3(9.3f, transform.position.y, 0);
         }
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, _vBoundBottom, _vBoundTop));
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y,-4f, 0));
 
     }
     public void AddScore(int points)

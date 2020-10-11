@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
         }
     }
     public Text scoreText;
+    public Text ammoText;
     [SerializeField]
     private Image _livesImg;
     private int _currentScore;
@@ -49,6 +50,14 @@ public class UIManager : MonoBehaviour
             GameManager.Instance._gameOver = true;
             StartCoroutine(GameOverFlicker());
            
+        }
+    }
+    public void UpdateAmmoCount(int ammoCount)
+    {
+        ammoText.text = "Ammo: " + ammoCount;
+        if(ammoCount == 0)
+        {
+            ammoText.color = Color.red;
         }
     }
     
