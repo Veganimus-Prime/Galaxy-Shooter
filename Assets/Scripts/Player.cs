@@ -202,6 +202,10 @@ public class Player : MonoBehaviour
                     return;
                 }
                 break;
+            case 5:
+                _ammoCount += 5;
+                UIManager.Instance.UpdateAmmoCount(_ammoCount);
+                break;
             default:
                 Debug.Log("Default Power Up ID");
                 break;
