@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
         }
         else if(ammoCount >=15)
         {
-            ammoText.text = "Ammo:MAX";
+            ammoText.text = "Ammo: MAX";
             ammoText.color = Color.green;
         }
         else
