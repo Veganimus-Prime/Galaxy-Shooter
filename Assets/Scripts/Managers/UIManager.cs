@@ -32,8 +32,6 @@ public class UIManager : MonoBehaviour
     {
         _instance = this;
     }
-
-    // Update is called once per frame
     void Start()
     {
         scoreText.text = "SCORE: " + 0;
@@ -51,7 +49,6 @@ public class UIManager : MonoBehaviour
             _restartText.SetActive(true); 
             GameManager.Instance._gameOver = true;
             StartCoroutine(GameOverFlicker());
-           
         }
     }
     public void UpdateAmmoCount(int ammoCount)
@@ -100,6 +97,5 @@ public class UIManager : MonoBehaviour
             _gameOverText.SetActive(false);
             yield return new WaitForSeconds(0.75f);
         }
-
     }
 }

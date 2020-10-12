@@ -58,7 +58,6 @@ public class Enemy : MonoBehaviour
                 }
                 break;
             case 1:
-                //Quaternion.Euler(0, 0, 90);
                 transform.Translate(Vector3.right * _speed * Time.deltaTime);
                 if (transform.position.x > 10)
                 {
@@ -66,7 +65,6 @@ public class Enemy : MonoBehaviour
                 }
                 break;
         }
-
     }
  void OnTriggerEnter2D(Collider2D other)
     {

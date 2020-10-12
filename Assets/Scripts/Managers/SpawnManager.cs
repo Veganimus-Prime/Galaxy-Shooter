@@ -26,16 +26,11 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject[] _powerUps = new GameObject[3];
     [SerializeField]
-    private GameObject[] _rarePowerUps = new GameObject[3];
+    private GameObject[] _rarePowerUps = new GameObject[4];
     private Vector3[] _posToSpawn = new Vector3[2];
-
     void Awake()
     {
         _instance = this;
-    }
-    void Start()
-    {
-        
     }
     public void OnPlayerDeath()
     {
@@ -85,7 +80,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(10f);
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 6, 0);
-            Instantiate(_rarePowerUps[(Random.Range(0, 3))], posToSpawn, Quaternion.identity);
+            Instantiate(_rarePowerUps[(Random.Range(0, 4))], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(15, 20));
         }
     }

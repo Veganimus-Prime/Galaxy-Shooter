@@ -215,12 +215,22 @@ public class Player : MonoBehaviour
                     return;
                 }
                 break;
-            case 5:
+            case 5://Ammo
                 if (_ammoCount < 15)
                 {
                     _ammoCount += 5;
                 }
                 UIManager.Instance.UpdateAmmoCount(_ammoCount);
+                break;
+            case 6://Sabotage
+                if (_isShieldActive == true)
+                {
+                    _shield.SetActive(false);
+                }
+                else
+                {
+                    Damage();
+                }
                 break;
             default:
                 Debug.Log("Default Power Up ID");
@@ -280,10 +290,6 @@ public class Player : MonoBehaviour
             UIManager.Instance.thrusterCharging = false;
             _thrusterEnabled = true;
         }
-       
-           
-       
-       
     }
    
 }
