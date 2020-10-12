@@ -17,13 +17,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
     [SerializeField]
-    private GameObject _enemyPrefab, _enemyContainer;
+    private GameObject[] _enemyPrefab = new GameObject[2];
+    [SerializeField]
+    private GameObject _enemyContainer;
+    private int _enemyToSpawn;
 
     public bool stopSpawning = true;
     [SerializeField]
     private GameObject[] _powerUps = new GameObject[3];
     [SerializeField]
     private GameObject[] _rarePowerUps = new GameObject[3];
+    private Vector3[] _posToSpawn = new Vector3[2];
 
     void Awake()
     {
@@ -40,6 +44,9 @@ public class SpawnManager : MonoBehaviour
     public void StartSpawning()
     {
         stopSpawning = false;
+        _posToSpawn[0]= new Vector3(Random.Range(-8, 8), 7, 0);
+        _posToSpawn[1] = new Vector3(-10, Random.Range(-3, 3), 0);
+
         StartCoroutine(SpawnRoutine());
         StartCoroutine(PowerUpRoutine());
         StartCoroutine(RarePowerUpRoutine());
@@ -48,10 +55,19 @@ public class SpawnManager : MonoBehaviour
     {
         while (stopSpawning == false)
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
-            GameObject newEnemy = Instantiate(_enemyPrefab, posToSpawn, Quaternion.identity);
-            newEnemy.transform.parent = _enemyContainer.transform;
-            yield return new WaitForSeconds(5f);
+            _enemyToSpawn = Random.Range(0, 2);
+            if (_enemyToSpawn == 0)
+            {
+                GameObject newEnemy = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.identity);
+                newEnemy.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSeconds(5f);
+            }
+            if(_enemyToSpawn == 1)
+            {
+                GameObject newEnemy = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.identity);
+                newEnemy.transform.parent = _enemyContainer.transform;
+                yield return new WaitForSeconds(5f);
+            }
         }
     }
     IEnumerator PowerUpRoutine()

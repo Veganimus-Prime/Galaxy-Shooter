@@ -272,8 +272,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a637157554e886949b529fee6d0a3adb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyPrefab: {fileID: 2839233689000840284, guid: 99d909ed8a91b4c43979d8dc37fecf54,
-    type: 3}
+  _enemyPrefab:
+  - {fileID: 2839233689000840284, guid: 99d909ed8a91b4c43979d8dc37fecf54, type: 3}
+  - {fileID: 994535947649313517, guid: bf68e2259af928546ac2a9fa730c0714, type: 3}
   _enemyContainer: {fileID: 503967270}
   stopSpawning: 0
   _powerUps:
@@ -494,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &867236214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,7 +503,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867236213}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -510,7 +511,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: 4a4c3194b9204714fbb8567fcfdd270a, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 1
+  weight: 0.25
   priority: 0
 --- !u!4 &867236215
 Transform:
@@ -1559,7 +1560,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1742655593}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -1748,6 +1749,7 @@ MonoBehaviour:
   scoreText: {fileID: 2073670702}
   ammoText: {fileID: 619653141}
   thrusterText: {fileID: 2004910901}
+  thrusterCharging: 0
   _livesImg: {fileID: 1736391620}
   _livesSprite:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
@@ -1990,7 +1992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 8.200012, y: 88.20001}
+  m_AnchoredPosition: {x: 8.199951, y: 88.20001}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2004910901
