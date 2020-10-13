@@ -2,23 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy: MonoBehaviour
 {
+    private Vector3 _targetPos;
     [SerializeField]
-    private int _enemyID;
+    protected int _enemyID;
     [SerializeField]
-    private bool _isFrozen = false;
+    protected bool _isFrozen = false;
     [SerializeField]
-    private float _speed = 4f;
+    protected float _speed = 4f;
     [SerializeField]
-    private GameObject _enemyLaser;
+    protected GameObject _enemyLaser;
     [SerializeField]
-    private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
-    private Animator _anim;
-    private AudioSource _audio;
-    private SpriteRenderer _sprite;
+    protected Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
+    protected Animator _anim;
+    protected AudioSource _audio;
+    protected SpriteRenderer _sprite;
     [SerializeField]
-    private AudioClip _explosionClip;
+    protected AudioClip _explosionClip;
+    // Start is called before the first frame update
     void Start()
     {
         _anim = GetComponent<Animator>();
@@ -27,12 +29,12 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Animator is NULL!");
         }
         _audio = GetComponent<AudioSource>();
-        if(_audio == null)
+        if (_audio == null)
         {
             Debug.LogError("AudioSource is NULL!");
         }
         _sprite = GetComponent<SpriteRenderer>();
-        if(_sprite == null)
+        if (_sprite == null)
         {
             Debug.LogError("Sprite Renderer is NULL!");
         }
@@ -41,10 +43,11 @@ public class Enemy : MonoBehaviour
             StartCoroutine(EnemyFireRoutine());
         }
     }
+
+    // Update is called once per frame
     void Update()
     {
         Movement();
-
     }
     void Movement()
     {
@@ -64,19 +67,30 @@ public class Enemy : MonoBehaviour
                     transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
                 }
                 break;
+            case 2:
+                if (Player.Instance != null)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, Player.Instance.transform.position, 2f * _speed * Time.deltaTime);
+                }
+                if (transform.position.x > 10)
+                {
+                    transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
+                   
+                }
+                break;
         }
     }
- void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         StopCoroutine(EnemyFireRoutine());
-        if (other.tag == "Player"|| other.tag == "Laser")
+        if (other.tag == "Player" || other.tag == "Laser")
         {
             _sprite.color = Color.white;
             _anim.SetTrigger("OnEnemyDeath");
             _audio.PlayOneShot(_explosionClip);
             _speed = 0;
             Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject,1.3f);
+            Destroy(this.gameObject, 1.3f);
             Player.Instance.AddScore(10);
             if (other.tag == "Player")
             {
@@ -92,7 +106,11 @@ public class Enemy : MonoBehaviour
             StartCoroutine(EnemyThawRoutine());
         }
     }
-    IEnumerator EnemyFireRoutine()
+    public void ChangeID(int newID)
+    {
+        _enemyID = newID;
+    }
+    protected IEnumerator EnemyFireRoutine()
     {
         yield return new WaitForSeconds(Random.Range(1.5f, 3));
         Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);

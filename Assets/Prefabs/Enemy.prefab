@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1083974963552508433}
   - component: {fileID: 2026556674044638494}
-  - component: {fileID: 5428831803532719266}
   - component: {fileID: 1553951379783680729}
   - component: {fileID: 4166934381583517035}
   - component: {fileID: 2620083413766034879}
   - component: {fileID: 1210272568499935182}
+  - component: {fileID: -7427915283334961229}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -86,25 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5428831803532719266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2839233689000840284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcdb41fa2a67f474da60ad2fc595200c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _enemyID: 0
-  _isFrozen: 0
-  _speed: 3
-  _enemyLaser: {fileID: 15968520002096042, guid: 3567a87dc329043489e89cb4cd8f8e7b,
-    type: 3}
-  _laserOffset: {x: 0, y: 0.5, z: 0}
-  _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
 --- !u!61 &1553951379783680729
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -267,3 +248,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-7427915283334961229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2839233689000840284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f974dfdaebba74ba212f0d5c98aece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyID: 0
+  _isFrozen: 0
+  _speed: 4
+  _enemyLaser: {fileID: 15968520002096042, guid: 3567a87dc329043489e89cb4cd8f8e7b,
+    type: 3}
+  _laserOffset: {x: 0, y: 0.5, z: 0}
+  _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}

@@ -10,6 +10,7 @@ TagManager:
   - Asteroid
   - Ice Beam
   - Collect Zone
+  - Rush Enemy
   layers:
   - Default
   - TransparentFX

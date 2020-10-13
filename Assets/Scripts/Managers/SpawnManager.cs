@@ -17,7 +17,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
     [SerializeField]
-    private GameObject[] _enemyPrefab = new GameObject[2];
+    private GameObject[] _enemyPrefab = new GameObject[3];
     [SerializeField]
     private GameObject _enemyContainer;
     private int _enemyToSpawn;
@@ -50,18 +50,26 @@ public class SpawnManager : MonoBehaviour
     {
         while (stopSpawning == false)
         {
-            _enemyToSpawn = Random.Range(0, 2);
-            if (_enemyToSpawn == 0)
+            _enemyToSpawn = Random.Range(0, 3);
+            switch (_enemyToSpawn)
             {
-                GameObject newEnemy = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.identity);
-                newEnemy.transform.parent = _enemyContainer.transform;
-                yield return new WaitForSeconds(5f);
-            }
-            if(_enemyToSpawn == 1)
-            {
-                GameObject newEnemy = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.identity);
-                newEnemy.transform.parent = _enemyContainer.transform;
-                yield return new WaitForSeconds(5f);
+                case 0:
+                    GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.identity);
+                    newEnemy0.transform.parent = _enemyContainer.transform;
+                    yield return new WaitForSeconds(5f);
+                    break;
+
+                case 1:
+                    GameObject newEnemy1 = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.identity);
+                    newEnemy1.transform.parent = _enemyContainer.transform;
+                    yield return new WaitForSeconds(5f);
+                    break;
+                case 2:
+                    GameObject newEnemy2 = Instantiate(_enemyPrefab[2], _posToSpawn[0], Quaternion.identity);
+                    newEnemy2.transform.parent = _enemyContainer.transform;
+                    yield return new WaitForSeconds(5f);
+                    break;
+
             }
         }
     }

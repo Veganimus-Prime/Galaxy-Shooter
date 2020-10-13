@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4111606841183683281}
-  - component: {fileID: 3978151611508871299}
   - component: {fileID: 690210939290311022}
   - component: {fileID: 5900753004871686930}
+  - component: {fileID: 3007704320078100468}
   m_Layer: 11
   m_Name: EnemyLaser
   m_TagString: Enemy
@@ -35,19 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3978151611508871299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 15968520002096042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec27e5430eda53d49b86e55e9f0db6d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speed: 8
 --- !u!61 &690210939290311022
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95,6 +82,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3007704320078100468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15968520002096042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7789ab323589b394296ad0443b51d0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 6
 --- !u!1 &1001558059231487971
 GameObject:
   m_ObjectHideFlags: 0

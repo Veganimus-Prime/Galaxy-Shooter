@@ -252,6 +252,7 @@ public class Player : MonoBehaviour
                 _audio.PlayOneShot(_explosionClip);
                 if (_isShieldActive == true)
                 {
+                    _isShieldActive = false;
                     _shield.SetActive(false);
                     Shield.Instance.shieldHP = 0;
                 }
