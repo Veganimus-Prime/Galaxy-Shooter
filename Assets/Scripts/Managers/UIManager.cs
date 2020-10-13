@@ -19,8 +19,8 @@ public class UIManager : MonoBehaviour
     }
     public Text scoreText;
     public Text ammoText;
-    public Text thrusterText;
-    public bool thrusterCharging;
+    public Text auxillaryText;
+    public bool auxillaryCharging;
     [SerializeField]
     private Image _livesImg;
     private int _currentScore;
@@ -68,24 +68,24 @@ public class UIManager : MonoBehaviour
             ammoText.color = Color.white;
         }
     }
-    public void UpdateThrusterCharge(int thrusterCharge)
+    public void UpdateAuxillaryCharge(int auxillaryCharge)
     {
-        thrusterText.text = "Thrusters: " + thrusterCharge;
-        if(thrusterCharge == 0)
+        auxillaryText.text = "Aux. Power: " + auxillaryCharge;
+        if(auxillaryCharge == 0)
         {
-            thrusterText.color = Color.red;
+            auxillaryText.color = Color.red;
         }
-        else if(thrusterCharge == 100)
+        else if(auxillaryCharge == 100)
         {
-            thrusterText.color = Color.green;
+            auxillaryText.color = Color.green;
         }
-        else if(thrusterCharging == true)
+        else if(auxillaryCharging == true)
         {
-            thrusterText.color = Color.yellow;
+            auxillaryText.color = Color.yellow;
         }
         else
         {
-            thrusterText.color = Color.white;
+            auxillaryText.color = Color.white;
         }
     }
    public IEnumerator GameOverFlicker()

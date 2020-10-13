@@ -259,7 +259,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 7
 --- !u!1 &503967270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,8 +1127,8 @@ MonoBehaviour:
     type: 3}
   _shield: {fileID: 947630329}
   _lives: 3
-  _thrusterCharge: 100
-  _thrusterEnabled: 1
+  _auxillaryCharge: 100
+  _auxillaryEnabled: 1
   _isShieldActive: 0
   _playerScore: 0
   _rightDamage: {fileID: 1227742248}
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _powerUpClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
-  _collectZone: {fileID: 388235192}
+  _magnetOn: 0
   _fireMode: 0
 --- !u!212 &1382354880
 SpriteRenderer:
@@ -1798,8 +1798,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 2073670702}
   ammoText: {fileID: 619653141}
-  thrusterText: {fileID: 2004910901}
-  thrusterCharging: 0
+  auxillaryText: {fileID: 2004910901}
+  auxillaryCharging: 0
   _livesImg: {fileID: 1736391620}
   _livesSprite:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
@@ -2020,7 +2020,7 @@ GameObject:
   - component: {fileID: 2004910902}
   - component: {fileID: 2004910901}
   m_Layer: 5
-  m_Name: Thruster_charge_text
+  m_Name: Auxillary_charge_text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2077,7 +2077,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Thrusters: 100'
+  m_Text: 'Aux. Power: 100'
 --- !u!222 &2004910902
 CanvasRenderer:
   m_ObjectHideFlags: 0

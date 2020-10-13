@@ -32,9 +32,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
-    private int _thrusterCharge = 100;
+    private int _auxillaryCharge = 100;
     [SerializeField]
-    private bool _thrusterEnabled = true;
+    private bool _auxillaryEnabled = true;
     public bool _isShieldActive;
     [SerializeField]
     [Header("SCORE")]
@@ -53,12 +53,8 @@ public class Player : MonoBehaviour
     private AudioClip _powerUpClip;
     [SerializeField]
     private AudioClip _explosionClip;
-    [SerializeField]
-    private GameObject _collectZone;
     public bool _magnetOn = false;
     private AudioSource _audio;
-    
-    private PowerUp _powerUp;
     public int _fireMode = 0;
     private void Awake()
     {
@@ -75,22 +71,14 @@ public class Player : MonoBehaviour
     {
         Movement();
         Thrusters();
+        Magnet();
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             Shoot();
         }
-        if (Input.GetKey(KeyCode.C))
-        {
-            _collectZone.SetActive(true);
-            _magnetOn = true;
-        }
-        else
-        {
-            _collectZone.SetActive(false);
-            _magnetOn = false;
-        }
-            if (_ammoCount > 15)
+        
+        if (_ammoCount > 15)
         {
             _ammoCount = 15;
         }
@@ -103,28 +91,47 @@ public class Player : MonoBehaviour
         transform.Translate(direction * _speed * Time.deltaTime);
         ScreenWrap();
     }
+    void Auxillary()
+    {
+        UIManager.Instance.UpdateAuxillaryCharge(_auxillaryCharge);
+        if (_auxillaryCharge > 100)
+        {
+            _auxillaryCharge = 100;
+        }
+        if (_auxillaryCharge <= 0 && _auxillaryEnabled == true)
+        {
+            _auxillaryEnabled = false;
+            UIManager.Instance.auxillaryCharging = true;
+            StartCoroutine(AuxillaryCooldown());
+        }
+    }
+    void Magnet()
+    {
+        Auxillary();
+        if (Input.GetKey(KeyCode.C) && _auxillaryEnabled == true)
+        {
+            _magnetOn = true;
+            _auxillaryCharge--;
+        }
+        else
+        {
+            _magnetOn = false;
+        }
+    }
     void Thrusters()
     {
-        UIManager.Instance.UpdateThrusterCharge(_thrusterCharge);
-        if (_thrusterCharge > 100)
-        {
-            _thrusterCharge = 100;
-        }
-        if (Input.GetKey(KeyCode.LeftShift) && _thrusterEnabled == true)
+        Auxillary();
+       
+        if (Input.GetKey(KeyCode.LeftShift) && _auxillaryEnabled == true)
         {
             _speed = _boostSpeed;
-            _thrusterCharge--;
+            _auxillaryCharge--;
         }
         else if (_speedBoostOn == false)
         {
             _speed = _normalSpeed;
         }
-        if (_thrusterCharge <= 0 && _thrusterEnabled == true)
-        {
-            _thrusterEnabled = false;
-            UIManager.Instance.thrusterCharging = true;
-            StartCoroutine(ThrusterCooldown());
-        }
+       
     }
    
     void Shoot()
@@ -298,19 +305,18 @@ public class Player : MonoBehaviour
                 break;
         }
     }
-    IEnumerator ThrusterCooldown()
+    IEnumerator AuxillaryCooldown()
     {
-        while (_thrusterCharge < 100)
+        while (_auxillaryCharge < 100)
         {
             yield return new WaitForSeconds(5f);
-            _thrusterCharge += 10;
-            UIManager.Instance.UpdateThrusterCharge(_thrusterCharge);
+            _auxillaryCharge += 10;
+            UIManager.Instance.UpdateAuxillaryCharge(_auxillaryCharge);
         }
-        if(_thrusterCharge ==100)
+        if(_auxillaryCharge ==100)
         {
-            UIManager.Instance.thrusterCharging = false;
-            _thrusterEnabled = true;
+            UIManager.Instance.auxillaryCharging = false;
+            _auxillaryEnabled = true;
         }
     }
-   
 }
