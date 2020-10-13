@@ -9,6 +9,7 @@ TagManager:
   - PowerUp
   - Asteroid
   - Ice Beam
+  - Collect Zone
   layers:
   - Default
   - TransparentFX

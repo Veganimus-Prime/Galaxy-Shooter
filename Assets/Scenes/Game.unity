@@ -213,6 +213,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &388235192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 388235193}
+  - component: {fileID: 388235194}
+  m_Layer: 12
+  m_Name: CollectZone
+  m_TagString: Collect Zone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &388235193
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388235192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1382354881}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &388235194
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388235192}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 10
 --- !u!1 &503967270
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,11 +327,12 @@ MonoBehaviour:
   _powerUps:
   - {fileID: 6227940003390595467, guid: 02f2c05f7eab4cf4d8a45118f8e1bdfa, type: 3}
   - {fileID: 5780172422776645027, guid: 268a86e993794184c852400092a80507, type: 3}
-  - {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d, type: 3}
-  _rarePowerUps:
   - {fileID: 2256958646531185217, guid: f666c8cbb69a05e4eb3b8d5b4460dc54, type: 3}
+  _rarePowerUps:
+  - {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d, type: 3}
   - {fileID: 9043545951487681219, guid: e22b5509d6e50da45b192067acabf026, type: 3}
   - {fileID: 5723538669142988510, guid: b3ee04fc4826508488244a1ccdd7e0a5, type: 3}
+  - {fileID: 7889635182848430084, guid: c07cab27f8fab3044a2404a7d84e8a84, type: 3}
 --- !u!4 &531470420
 Transform:
   m_ObjectHideFlags: 0
@@ -1090,6 +1138,7 @@ MonoBehaviour:
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
   _powerUpClip: {fileID: 8300000, guid: 5ee343246919d2b4bba63ae629e95494, type: 3}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _collectZone: {fileID: 388235192}
   _fireMode: 0
 --- !u!212 &1382354880
 SpriteRenderer:
@@ -1156,6 +1205,7 @@ Transform:
   - {fileID: 663601052}
   - {fileID: 1227742249}
   - {fileID: 1137446306}
+  - {fileID: 388235193}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

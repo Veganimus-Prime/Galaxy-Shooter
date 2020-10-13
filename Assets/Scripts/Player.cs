@@ -53,7 +53,12 @@ public class Player : MonoBehaviour
     private AudioClip _powerUpClip;
     [SerializeField]
     private AudioClip _explosionClip;
+    [SerializeField]
+    private GameObject _collectZone;
+    public bool _magnetOn = false;
     private AudioSource _audio;
+    
+    private PowerUp _powerUp;
     public int _fireMode = 0;
     private void Awake()
     {
@@ -75,7 +80,17 @@ public class Player : MonoBehaviour
         {
             Shoot();
         }
-        if (_ammoCount > 15)
+        if (Input.GetKey(KeyCode.C))
+        {
+            _collectZone.SetActive(true);
+            _magnetOn = true;
+        }
+        else
+        {
+            _collectZone.SetActive(false);
+            _magnetOn = false;
+        }
+            if (_ammoCount > 15)
         {
             _ammoCount = 15;
         }
@@ -140,11 +155,11 @@ public class Player : MonoBehaviour
     }
     public void Damage()
     {
-        if (_isShieldActive == false)
+        if (_isShieldActive == false )
         {
             _lives--;
             CameraShake.Instance.TriggerShake();
-            switch(_lives)
+            switch (_lives)
             {
                 case 0:
                     _audio.PlayOneShot(_explosionClip);
@@ -162,7 +177,7 @@ public class Player : MonoBehaviour
             }
             UIManager.Instance.UpdateLives(_lives);
         }
-        else if(_isShieldActive == true)
+        else if (Shield.Instance.shieldHP > 0)
         {
             Shield.Instance.ShieldHit();
         }
@@ -183,30 +198,34 @@ public class Player : MonoBehaviour
     }
     public void PowerUp(int powerUpID)
     {
-        _audio.PlayOneShot(_powerUpClip);
         switch (powerUpID)
         {
             case 0://TripleShot
+                _audio.PlayOneShot(_powerUpClip);
                 _fireMode = 1;
                 StartCoroutine(PowerUpCooldown(0));
                 break;
             case 1://SpeedBoost
+                _audio.PlayOneShot(_powerUpClip);
                 _speed = _boostSpeed;
                 _speedBoostOn = true;
                 StartCoroutine(PowerUpCooldown(1));
                 break;
             case 2://Shield
+                _audio.PlayOneShot(_powerUpClip);
                 _isShieldActive = true;
                 _shield.SetActive(true);
                 Shield.Instance.shieldHP = 4;
                 Shield.Instance.ShieldHit();
                 break;
             case 3://IceBeam
+                _audio.PlayOneShot(_powerUpClip);
                 _fireMode = 2;
                 StartCoroutine(PowerUpCooldown(2));
                 break;
             case 4: //+1 Life
-                if(_lives <3)
+                _audio.PlayOneShot(_powerUpClip);
+                if (_lives <3)
                 {
                     Heal();
                 }
@@ -223,9 +242,11 @@ public class Player : MonoBehaviour
                 UIManager.Instance.UpdateAmmoCount(_ammoCount);
                 break;
             case 6://Sabotage
+                _audio.PlayOneShot(_explosionClip);
                 if (_isShieldActive == true)
                 {
                     _shield.SetActive(false);
+                    Shield.Instance.shieldHP = 0;
                 }
                 else
                 {

@@ -10,7 +10,12 @@ public class PowerUp : MonoBehaviour
     
     void Update()
     {
+        if(Player.Instance._magnetOn == false)
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
+        else
+        {
+            this.transform.position = Vector3.MoveTowards(this.transform.position, Player.Instance.transform.position, 3.0f *_speed * Time.deltaTime);
+        }
         if (transform.position.y < -6)
         {
             Destroy(this.gameObject);
