@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Enemy: MonoBehaviour
 {
-    private Vector3 _targetPos;
     [SerializeField]
     protected int _enemyID;
+    [SerializeField]
+    private int _lives = 1;
     [SerializeField]
     protected bool _isFrozen = false;
     [SerializeField]
@@ -80,10 +81,10 @@ public class Enemy: MonoBehaviour
                 break;
         }
     }
-    void OnTriggerEnter2D(Collider2D other)
+    public void Damage()
     {
-        StopCoroutine(EnemyFireRoutine());
-        if (other.tag == "Player" || other.tag == "Laser")
+        _lives--;
+        if (_lives == 0)
         {
             _sprite.color = Color.white;
             _anim.SetTrigger("OnEnemyDeath");
@@ -92,6 +93,15 @@ public class Enemy: MonoBehaviour
             Destroy(GetComponent<Collider2D>());
             Destroy(this.gameObject, 1.3f);
             Player.Instance.AddScore(10);
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        StopCoroutine(EnemyFireRoutine());
+        if (other.tag == "Player" || other.tag == "Laser")
+        {
+            Damage();
+           
             if (other.tag == "Player")
             {
                 Player.Instance.Damage();
@@ -109,6 +119,10 @@ public class Enemy: MonoBehaviour
     public void ChangeID(int newID)
     {
         _enemyID = newID;
+    }
+    public void EnemyFire()
+    {
+        Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
     }
     protected IEnumerator EnemyFireRoutine()
     {

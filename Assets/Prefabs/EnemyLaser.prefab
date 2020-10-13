@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3007704320078100468}
   m_Layer: 11
   m_Name: EnemyLaser
-  m_TagString: Enemy
+  m_TagString: Enemy Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 7886643740245203503}
   m_Layer: 11
   m_Name: laser (1)
-  m_TagString: Untagged
+  m_TagString: Enemy Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 6762687823346707317}
   m_Layer: 11
   m_Name: laser
-  m_TagString: Untagged
+  m_TagString: Enemy Laser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

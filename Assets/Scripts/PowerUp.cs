@@ -33,5 +33,9 @@ public class PowerUp : MonoBehaviour
             Player.Instance.PowerUp(_powerUpID);
             Destroy(this.gameObject);
         }
+        else if(other.tag == "Enemy Laser")
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

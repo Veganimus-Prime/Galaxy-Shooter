@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
         {
             if (_instance == null)
             {
-                Debug.LogError("Player is NULL!");
+                Debug.Log("Player is NULL!");
             }
             return _instance;
         }
@@ -35,7 +35,9 @@ public class Player : MonoBehaviour
     private int _auxillaryCharge = 100;
     [SerializeField]
     private bool _auxillaryEnabled = true;
-    public bool _isShieldActive;
+    public bool isShieldActive;
+    public bool isAuxShieldActive = false;
+    public bool powerUpShield = false;
     [SerializeField]
     [Header("SCORE")]
     private int _playerScore;
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour
         Movement();
         Thrusters();
         Magnet();
+        AuxShield();
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -133,6 +136,21 @@ public class Player : MonoBehaviour
         }
        
     }
+    void AuxShield()
+    {
+        Auxillary();
+        if (Input.GetKey(KeyCode.RightShift) && _auxillaryEnabled == true)
+        {
+            isAuxShieldActive = true;
+            _shield.SetActive(true);
+            _auxillaryCharge--;
+        }
+        else if(powerUpShield == false)
+        {
+            isAuxShieldActive = false;
+            _shield.SetActive(false);
+        }
+    }
    
     void Shoot()
     {
@@ -162,7 +180,7 @@ public class Player : MonoBehaviour
     }
     public void Damage()
     {
-        if (_isShieldActive == false )
+        if (isShieldActive == false && isAuxShieldActive == false )
         {
             _lives--;
             CameraShake.Instance.TriggerShake();
@@ -220,7 +238,8 @@ public class Player : MonoBehaviour
                 break;
             case 2://Shield
                 _audio.PlayOneShot(_powerUpClip);
-                _isShieldActive = true;
+                powerUpShield = true;
+                isShieldActive = true;
                 _shield.SetActive(true);
                 Shield.Instance.shieldHP = 4;
                 Shield.Instance.ShieldHit();
@@ -250,9 +269,9 @@ public class Player : MonoBehaviour
                 break;
             case 6://Sabotage
                 _audio.PlayOneShot(_explosionClip);
-                if (_isShieldActive == true)
+                if (isShieldActive == true)
                 {
-                    _isShieldActive = false;
+                    isShieldActive = false;
                     _shield.SetActive(false);
                     Shield.Instance.shieldHP = 0;
                 }

@@ -9,8 +9,8 @@ TagManager:
   - PowerUp
   - Asteroid
   - Ice Beam
-  - Collect Zone
   - Rush Enemy
+  - Enemy Laser
   layers:
   - Default
   - TransparentFX

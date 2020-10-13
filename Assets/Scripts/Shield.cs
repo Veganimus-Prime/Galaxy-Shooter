@@ -42,7 +42,8 @@ public class Shield : MonoBehaviour
             switch (shieldHP)
             {
                 case 0:
-                    Player.Instance._isShieldActive = false;
+                    Player.Instance.isShieldActive = false;
+                    Player.Instance.powerUpShield = false;
                     Player.Instance._shield.SetActive(false);
                     break;
                 case 1:

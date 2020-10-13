@@ -11,10 +11,14 @@ public class RamTrigger : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag =="Player")
+        if(other.tag =="Player"|| other.tag == "Laser")
         {
             _enemy.ChangeID(2);
             Destroy(this.gameObject);
+        }
+        else if (other.tag == "PowerUp")
+        {
+            _enemy.EnemyFire();
         }
     }
 }
