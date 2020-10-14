@@ -51,7 +51,7 @@ public class SpawnManager : MonoBehaviour
     {
         while (stopSpawning == false)
         {
-            _enemyToSpawn = Random.Range(0, 3);
+            _enemyToSpawn = Random.Range(0, 4);
             switch (_enemyToSpawn)
             {
                 case 0:
@@ -70,6 +70,12 @@ public class SpawnManager : MonoBehaviour
                     newEnemy2.transform.parent = _enemyContainer.transform;
                     yield return new WaitForSeconds(5f);
                     break;
+                case 3:
+                    GameObject newEnemy3 = Instantiate(_enemyPrefab[3], _posToSpawn[0], Quaternion.identity);
+                    newEnemy3.transform.parent = _enemyContainer.transform;
+                    yield return new WaitForSeconds(5f);
+                    break;
+
             }
         }
     }

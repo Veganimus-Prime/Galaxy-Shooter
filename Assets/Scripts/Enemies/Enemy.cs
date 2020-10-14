@@ -11,9 +11,11 @@ public class Enemy: MonoBehaviour
     [SerializeField]
     protected bool _isFrozen = false;
     [SerializeField]
+    private bool _isShieldActive = false;
+    [SerializeField]
     protected float _speed = 4f;
     [SerializeField]
-    protected GameObject _enemyLaser;
+    protected GameObject _enemyLaser, _enemyShield;
     [SerializeField]
     protected Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     protected Animator _anim;
@@ -24,6 +26,11 @@ public class Enemy: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(_enemyID == 3)
+        {
+            _enemyShield.SetActive(true);
+            _isShieldActive = true;
+        }
         _anim = GetComponentInChildren<Animator>();
         if (_anim == null)
         {
@@ -44,8 +51,6 @@ public class Enemy: MonoBehaviour
             StartCoroutine(EnemyFireRoutine());
         }
     }
-
-    // Update is called once per frame
     void Update()
     {
         Movement();
@@ -79,25 +84,43 @@ public class Enemy: MonoBehaviour
                    
                 }
                 break;
+            case 3:
+                _speed = 2.5f;
+                transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                if (transform.position.y < -6)
+                {
+                    transform.position = new Vector3(Random.Range(-8, 8), 5, 0);
+                }
+                break;
         }
     }
     public void Damage()
     {
-        _lives--;
-        if (_lives == 0)
+        if (_isShieldActive == false)
         {
-            _sprite.color = Color.white;
-            _anim.SetTrigger("OnEnemyDeath");
-            _audio.PlayOneShot(_explosionClip);
-            _speed = 0;
-            Destroy(GetComponent<Collider2D>());
-            Destroy(this.gameObject, 1.3f);
-            Player.Instance.AddScore(10);
+            _lives--;
+            if (_lives == 0)
+            {
+                StopCoroutine(EnemyFireRoutine());
+                _sprite.color = Color.white;
+                _anim.SetTrigger("OnEnemyDeath");
+                _audio.PlayOneShot(_explosionClip);
+                _speed = 0;
+                Destroy(GetComponent<Collider2D>());
+                Destroy(this.gameObject, 1.3f);
+                Player.Instance.AddScore(10);
+            }
+        }
+        else
+        {
+            _isShieldActive = false;
+            _enemyShield.SetActive(false);
+            ChangeID(2);
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        StopCoroutine(EnemyFireRoutine());
+        
         if (other.tag == "Player" || other.tag == "Laser")
         {
             Damage();
@@ -107,7 +130,7 @@ public class Enemy: MonoBehaviour
                 Player.Instance.Damage();
             }
         }
-        else if (other.tag == "Ice Beam")
+        else if (other.tag == "Ice Beam" && _isShieldActive == false)
         {
             StopCoroutine(EnemyFireRoutine());
             _isFrozen = true;
