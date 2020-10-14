@@ -5,20 +5,29 @@ using UnityEngine;
 public class RamTrigger : MonoBehaviour
 {
     private Enemy _enemy;
+    [SerializeField]
+    private int _triggerID;
     void Start()
     {
         _enemy = GetComponentInParent<Enemy>();
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag =="Player"|| other.tag == "Laser")
+        if (_triggerID == 0)
         {
-            _enemy.ChangeID(2);
-            Destroy(this.gameObject);
+            if (other.tag == "Player" || other.tag == "Laser")
+            {
+                _enemy.ChangeID(2);
+                Destroy(this.gameObject);
+            }
         }
-        else if (other.tag == "PowerUp")
+        else if (_triggerID != 0 && other.tag == "PowerUp")
         {
             _enemy.EnemyFire();
+        }
+        else if (other.tag == "Player" || other.tag == "Laser")
+        {
+            return;
         }
     }
 }

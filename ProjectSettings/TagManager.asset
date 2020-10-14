@@ -11,6 +11,7 @@ TagManager:
   - Ice Beam
   - Rush Enemy
   - Enemy Laser
+  - Detector
   layers:
   - Default
   - TransparentFX

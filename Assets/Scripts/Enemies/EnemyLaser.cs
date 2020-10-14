@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyLaser : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 6f;
+    private float _speed = 8f;
     
     void Update()
     {
@@ -29,6 +29,10 @@ public class EnemyLaser : MonoBehaviour
                 Destroy(transform.parent.gameObject);
             }
             Player.Instance.Damage();
+        }
+        else if (other.tag == "PowerUp")
+        {
+            Destroy(this.gameObject);
         }
     }
 }

@@ -46,6 +46,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(PowerUpRoutine());
         StartCoroutine(RarePowerUpRoutine());
     }
+    
     IEnumerator SpawnRoutine()
     {
         while (stopSpawning == false)
@@ -69,7 +70,6 @@ public class SpawnManager : MonoBehaviour
                     newEnemy2.transform.parent = _enemyContainer.transform;
                     yield return new WaitForSeconds(5f);
                     break;
-
             }
         }
     }
@@ -77,8 +77,8 @@ public class SpawnManager : MonoBehaviour
     {
         while (stopSpawning == false)
         {
-            Vector3 posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 6, 0);
-            Instantiate(_powerUps[(Random.Range(0,3))], posToSpawn, Quaternion.identity);
+            Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
+            Instantiate(_powerUps[(Random.Range(0,3))],posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(7, 10));
         }
     }
@@ -87,7 +87,7 @@ public class SpawnManager : MonoBehaviour
         while (stopSpawning == false)
         {
             yield return new WaitForSeconds(10f);
-            Vector3 posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 6, 0);
+            Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             Instantiate(_rarePowerUps[(Random.Range(0, 4))], posToSpawn, Quaternion.identity);
             yield return new WaitForSeconds(Random.Range(15, 20));
         }

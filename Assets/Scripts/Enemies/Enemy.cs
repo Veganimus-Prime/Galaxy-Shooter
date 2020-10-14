@@ -24,17 +24,17 @@ public class Enemy: MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
         if (_anim == null)
         {
             Debug.LogError("Animator is NULL!");
         }
-        _audio = GetComponent<AudioSource>();
+        _audio = GetComponentInChildren<AudioSource>();
         if (_audio == null)
         {
             Debug.LogError("AudioSource is NULL!");
         }
-        _sprite = GetComponent<SpriteRenderer>();
+        _sprite = GetComponentInChildren<SpriteRenderer>();
         if (_sprite == null)
         {
             Debug.LogError("Sprite Renderer is NULL!");

@@ -6,7 +6,7 @@ public class PowerUp : MonoBehaviour
 {
     private float _speed = 2.5f;
     [SerializeField]
-    private int _powerUpID;
+    private int _powerUpID, _lives = 1;
     
     void Update()
     {
@@ -16,6 +16,7 @@ public class PowerUp : MonoBehaviour
             {
                 transform.Translate(Vector3.down * _speed * Time.deltaTime);
             }
+            
             else
             {
                 this.transform.position = Vector3.MoveTowards(this.transform.position, Player.Instance.transform.position, 3.0f * _speed * Time.deltaTime);
@@ -26,16 +27,24 @@ public class PowerUp : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    void Damage()
+    {
+        _lives--;
+        if(_lives==0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if(other.tag == "Player")
         {
             Player.Instance.PowerUp(_powerUpID);
-            Destroy(this.gameObject);
+            Damage();
         }
         else if(other.tag == "Enemy Laser")
         {
-            Destroy(this.gameObject);
+            Damage();
         }
     }
 }
