@@ -17,18 +17,12 @@ public class Shield : MonoBehaviour
         }
     }
     public int shieldHP = 3;
-    private SpriteRenderer _sprite;
     void Awake()
     {
         _instance = this;
     }
     void Start()
     {
-        _sprite = GetComponent<SpriteRenderer>();
-        if (_sprite == null)
-        {
-            Debug.LogError("Sprite Renderer is NULL!");
-        }
     }
     public void ShieldHit()
     {
