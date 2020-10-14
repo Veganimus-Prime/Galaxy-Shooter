@@ -116,6 +116,8 @@ public class Enemy: MonoBehaviour
             _isShieldActive = false;
             _enemyShield.SetActive(false);
             ChangeID(2);
+            StartCoroutine(Kamikaze());
+           
         }
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -158,5 +160,17 @@ public class Enemy: MonoBehaviour
         _isFrozen = false;
         _speed = 4f;
         _sprite.color = Color.white;
+    }
+    IEnumerator Kamikaze()
+    {
+        yield return new WaitForSeconds(2f);
+        StopCoroutine(EnemyFireRoutine());
+        _sprite.color = Color.white;
+        _anim.SetTrigger("OnEnemyDeath");
+        _audio.PlayOneShot(_explosionClip);
+        _speed = 0;
+        Destroy(GetComponent<Collider2D>());
+        Destroy(this.gameObject, 1.3f);
+        Player.Instance.AddScore(10);
     }
 }

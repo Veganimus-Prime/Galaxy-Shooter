@@ -53,7 +53,7 @@ MonoBehaviour:
   _isFrozen: 0
   _isShieldActive: 0
   _speed: 4
-  _enemyLaser: {fileID: 15968520002096042, guid: 3567a87dc329043489e89cb4cd8f8e7b,
+  _enemyLaser: {fileID: 15968520002096042, guid: 85c260e451065744fafa683f1ab66e7b,
     type: 3}
   _enemyShield: {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d,
     type: 3}

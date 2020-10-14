@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
+    public GameObject pauseMenu;
     public Text scoreText;
     public Text ammoText;
     public Text auxillaryText;
@@ -87,6 +88,10 @@ public class UIManager : MonoBehaviour
         {
             auxillaryText.color = Color.white;
         }
+    }
+    public void PauseMenu(bool paused)
+    {
+        pauseMenu.SetActive(paused);
     }
    public IEnumerator GameOverFlicker()
     {
