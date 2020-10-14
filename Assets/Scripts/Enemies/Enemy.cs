@@ -23,7 +23,7 @@ public class Enemy: MonoBehaviour
     protected SpriteRenderer _sprite;
     [SerializeField]
     protected AudioClip _explosionClip;
-    // Start is called before the first frame update
+   
     void Start()
     {
         if(_enemyID == 3)

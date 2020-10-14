@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     private int _boostSpeed = 10;
     private bool _speedBoostOn = false;
     [SerializeField]
-    private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab;
+    private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab, _homingPrefab;
     public GameObject _shield;
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     private Vector3 _tripleShotOffset = new Vector3(0, -0.5f, 0);
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
-    private int _auxillaryCharge = 100;
+    private float _auxillaryCharge = 100f;
     [SerializeField]
     private bool _auxillaryEnabled = true;
     public bool isShieldActive;
@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
         Thrusters();
         Magnet();
         AuxShield();
+        FireMode();
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
@@ -93,6 +94,21 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(hInput, vInput, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         ScreenWrap();
+    }
+    void FireMode()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            _fireMode++;
+        }
+        if(_fireMode >3)
+        {
+            _fireMode = 0;
+        }
+    }
+    public void AuxillaryRecharge()
+    {
+        _auxillaryCharge += 10;
     }
     void Auxillary()
     {
@@ -114,7 +130,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.C) && _auxillaryEnabled == true)
         {
             _magnetOn = true;
-            _auxillaryCharge--;
+            _auxillaryCharge-=0.5f;
         }
         else
         {
@@ -128,7 +144,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && _auxillaryEnabled == true)
         {
             _speed = _boostSpeed;
-            _auxillaryCharge--;
+            _auxillaryCharge -= 0.5f;
         }
         else if (_speedBoostOn == false)
         {
@@ -143,7 +159,7 @@ public class Player : MonoBehaviour
         {
             isAuxShieldActive = true;
             _shield.SetActive(true);
-            _auxillaryCharge--;
+            _auxillaryCharge -= 0.5f;
         }
         else if(powerUpShield == false)
         {
@@ -169,6 +185,9 @@ public class Player : MonoBehaviour
                     break;
                 case 2:
                     Instantiate(_iceBeamPrefab, transform.position + _laserOffset, Quaternion.identity);
+                    break;
+                case 3:
+                    Instantiate(_homingPrefab, transform.position + _laserOffset, Quaternion.identity);
                     break;
             }
             _audio.PlayOneShot(_laserClip, 10);
@@ -280,6 +299,10 @@ public class Player : MonoBehaviour
                     Damage();
                 }
                 break;
+            case 7:
+                _fireMode = 3;
+                StartCoroutine(PowerUpCooldown(3));
+                break;
             default:
                 Debug.Log("Default Power Up ID");
                 break;
@@ -317,6 +340,10 @@ public class Player : MonoBehaviour
                 _speedBoostOn = false;
                 break;
             case 2://IceBeam
+                yield return new WaitForSeconds(5f);
+                _fireMode = 0;
+                break;
+            case 3://LOC-NAR homing missile
                 yield return new WaitForSeconds(5f);
                 _fireMode = 0;
                 break;

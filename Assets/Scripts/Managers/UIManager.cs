@@ -68,7 +68,7 @@ public class UIManager : MonoBehaviour
             ammoText.color = Color.white;
         }
     }
-    public void UpdateAuxillaryCharge(int auxillaryCharge)
+    public void UpdateAuxillaryCharge(float auxillaryCharge)
     {
         auxillaryText.text = "Aux. Power: " + auxillaryCharge;
         if(auxillaryCharge == 0)
