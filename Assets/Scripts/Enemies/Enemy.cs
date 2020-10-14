@@ -22,8 +22,10 @@ public class Enemy: MonoBehaviour
     protected AudioSource _audio;
     protected SpriteRenderer _sprite;
     [SerializeField]
-    protected AudioClip _explosionClip;
-   
+    protected AudioClip _explosionClip, _laserClip;
+
+    public object WorldPos { get; private set; }
+
     void Start()
     {
         if(_enemyID == 3)
@@ -148,11 +150,13 @@ public class Enemy: MonoBehaviour
     public void EnemyFire()
     {
         Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+        _audio.PlayOneShot(_laserClip);
     }
     protected IEnumerator EnemyFireRoutine()
     {
         yield return new WaitForSeconds(Random.Range(1.5f, 3));
         Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+        _audio.PlayOneShot(_laserClip);
     }
     IEnumerator EnemyThawRoutine()
     {
@@ -163,7 +167,7 @@ public class Enemy: MonoBehaviour
     }
     IEnumerator Kamikaze()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
         StopCoroutine(EnemyFireRoutine());
         _sprite.color = Color.white;
         _anim.SetTrigger("OnEnemyDeath");

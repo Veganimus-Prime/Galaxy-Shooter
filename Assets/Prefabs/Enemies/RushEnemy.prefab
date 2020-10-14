@@ -271,6 +271,7 @@ MonoBehaviour:
   _enemyShield: {fileID: 0}
   _laserOffset: {x: 0, y: 0.5, z: 0}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!1 &2353117727586985388
 GameObject:
   m_ObjectHideFlags: 0

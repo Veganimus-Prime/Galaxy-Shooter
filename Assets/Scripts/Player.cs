@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     private GameObject _explosion;
     [Header("Audio Clips")]
     [SerializeField]
-    private AudioClip _laserClip;
+    private AudioClip _laserClip, _tripleShotClip, _iceBeamClip, _homingClip, _magnetClip;
     [SerializeField]
     private AudioClip _powerUpClip;
     [SerializeField]
@@ -131,6 +131,7 @@ public class Player : MonoBehaviour
         {
             _magnetOn = true;
             _auxillaryCharge-=0.5f;
+            _audio.PlayOneShot(_magnetClip);
         }
         else
         {
@@ -179,18 +180,22 @@ public class Player : MonoBehaviour
             {
                 case 0:
                     Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
+                    _audio.PlayOneShot(_laserClip, 10);
                     break;
                 case 1:
                     Instantiate(_tripleShotPrefab, transform.position + _tripleShotOffset, Quaternion.identity);
+                    _audio.PlayOneShot(_tripleShotClip, 10);
                     break;
                 case 2:
                     Instantiate(_iceBeamPrefab, transform.position + _laserOffset, Quaternion.identity);
+                    _audio.PlayOneShot(_iceBeamClip, 10);
                     break;
                 case 3:
                     Instantiate(_homingPrefab, transform.position + _laserOffset, Quaternion.identity);
+                    _audio.PlayOneShot(_homingClip, 10);
                     break;
             }
-            _audio.PlayOneShot(_laserClip, 10);
+            
         }
         else
         {
@@ -299,7 +304,8 @@ public class Player : MonoBehaviour
                     Damage();
                 }
                 break;
-            case 7:
+            case 7://LOC-NAR
+                _audio.PlayOneShot(_powerUpClip);
                 _fireMode = 3;
                 StartCoroutine(PowerUpCooldown(3));
                 break;
