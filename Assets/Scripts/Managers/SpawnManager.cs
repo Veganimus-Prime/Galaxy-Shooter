@@ -46,37 +46,36 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(PowerUpRoutine());
         StartCoroutine(RarePowerUpRoutine());
     }
-    
+    public void EnemySpawn(int _enemyToSpawn)
+    {
+        // _enemyToSpawn = Random.Range(0, 4);
+        switch (_enemyToSpawn)
+        {
+            case 0:
+                GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.identity);
+                newEnemy0.transform.parent = _enemyContainer.transform;
+                break;
+
+            case 1:
+                GameObject newEnemy1 = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.identity);
+                newEnemy1.transform.parent = _enemyContainer.transform;
+                break;
+            case 2:
+                GameObject newEnemy2 = Instantiate(_enemyPrefab[2], _posToSpawn[0], Quaternion.identity);
+                newEnemy2.transform.parent = _enemyContainer.transform;
+                break;
+            case 3:
+                GameObject newEnemy3 = Instantiate(_enemyPrefab[3], _posToSpawn[0], Quaternion.identity);
+                newEnemy3.transform.parent = _enemyContainer.transform;
+                break;
+        }
+    }
     IEnumerator SpawnRoutine()
     {
         while (stopSpawning == false)
         {
-            _enemyToSpawn = Random.Range(0, 4);
-            switch (_enemyToSpawn)
-            {
-                case 0:
-                    GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.identity);
-                    newEnemy0.transform.parent = _enemyContainer.transform;
-                    yield return new WaitForSeconds(5f);
-                    break;
-
-                case 1:
-                    GameObject newEnemy1 = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.identity);
-                    newEnemy1.transform.parent = _enemyContainer.transform;
-                    yield return new WaitForSeconds(5f);
-                    break;
-                case 2:
-                    GameObject newEnemy2 = Instantiate(_enemyPrefab[2], _posToSpawn[0], Quaternion.identity);
-                    newEnemy2.transform.parent = _enemyContainer.transform;
-                    yield return new WaitForSeconds(5f);
-                    break;
-                case 3:
-                    GameObject newEnemy3 = Instantiate(_enemyPrefab[3], _posToSpawn[0], Quaternion.identity);
-                    newEnemy3.transform.parent = _enemyContainer.transform;
-                    yield return new WaitForSeconds(5f);
-                    break;
-
-            }
+            EnemySpawn(Random.Range(0, 4));
+            yield return new WaitForSeconds(5f);
         }
     }
     IEnumerator PowerUpRoutine()

@@ -74,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: b92629c5840161c438410113120bb05c, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 5f60d51498ea18a4c9a1b883f25fe440, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -265,6 +265,7 @@ MonoBehaviour:
   _isFrozen: 0
   _isShieldActive: 0
   _speed: 4
+  _rotationSpeed: 2
   _enemyLaser: {fileID: 3280414382025692157, guid: 0868d4d21c171414f98cfcb18a71d408,
     type: 3}
   _enemyShield: {fileID: 0}

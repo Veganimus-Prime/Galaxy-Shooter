@@ -134,6 +134,7 @@ MonoBehaviour:
   _isFrozen: 0
   _isShieldActive: 0
   _speed: 4
+  _rotationSpeed: 2
   _enemyLaser: {fileID: 15968520002096042, guid: 85c260e451065744fafa683f1ab66e7b,
     type: 3}
   _enemyShield: {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d,
@@ -259,8 +260,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d7083c4756563d54680e2a6aa22ab889, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: bb737409f5f4d3f498947e671f9a9e75, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

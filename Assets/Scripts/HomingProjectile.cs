@@ -36,7 +36,7 @@ public class HomingProjectile : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
-        else if (_energyAbsorbed == true)
+        else if (_energyAbsorbed == true && Player.Instance != null)
         {
             float step = _speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, Player.Instance.transform.position, step);
@@ -79,12 +79,12 @@ public class HomingProjectile : MonoBehaviour
             _enemy.Damage();
             Damage();
             _energyAbsorbed = true;
-            transform.localScale = new Vector3(0.55f, 0.5f, 0.5f);
+            transform.localScale = new Vector3(0.6f, 0.5f, 0.5f);
         }
         else if (other.tag == "Player" && _energyAbsorbed == true)
         {
-            Destroy(this.gameObject);
             Player.Instance.AuxillaryRecharge();
+            Destroy(this.gameObject, 0.5f);
         }
     }
     void Damage()

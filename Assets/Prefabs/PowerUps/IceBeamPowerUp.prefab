@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerUpID: 3
+  _lives: 1
 --- !u!58 &-6182953444264113619
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -107,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 4cb9e7fca0441754aa9cda5c83213d55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee20e511c66187840911ada46b92967f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

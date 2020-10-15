@@ -3,7 +3,30 @@ guid: 2aac411bb020dcc438a152c0b8499f31
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _laserPrefab: {fileID: 9016098607293788722, guid: 2d3802c6f097442448c0d11ae5bdbd05,
+      type: 3}
+  - _tripleShotPrefab: {fileID: 2604185727553831783, guid: f275cf6a969516841b4a5ecd89b3d692,
+      type: 3}
+  - _iceBeamPrefab: {fileID: 5216606996382145091, guid: f5d524b70dea3e34a91cefad873c4503,
+      type: 3}
+  - _homingPrefab: {fileID: 4088303936059730588, guid: ef65d378315ee8a4a8da3567e8b5bd5e,
+      type: 3}
+  - _shield: {fileID: 7183476393950354994, guid: 5038e8653407dd345a904094c462c82e,
+      type: 3}
+  - _rightDamage: {fileID: 2175886087131195038, guid: eb35d582893c43b47afbfd8829d59989,
+      type: 3}
+  - _leftDamage: {fileID: 5872390178906391480, guid: 58846818d43eaf845af3f6c889fe48b0,
+      type: 3}
+  - _explosion: {fileID: 3618151420856934090, guid: c6e5e17c98fbc2b4e9082f985d7bb494,
+      type: 3}
+  - _laserClip: {instanceID: 0}
+  - _tripleShotClip: {instanceID: 0}
+  - _iceBeamClip: {instanceID: 0}
+  - _homingClip: {instanceID: 0}
+  - _magnetClip: {instanceID: 0}
+  - _powerUpClip: {instanceID: 0}
+  - _explosionClip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

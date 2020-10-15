@@ -25,6 +25,7 @@ public class PowerUp : MonoBehaviour
         if (transform.position.y < -6)
         {
             Destroy(this.gameObject);
+            Player.Instance.AddScore(5);
         }
     }
     void Damage()

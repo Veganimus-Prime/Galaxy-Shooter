@@ -51,13 +51,6 @@ public class Enemy: MonoBehaviour
     void Update()
     {
         Movement();
-        Rotation();
-    }
-    void Rotation()
-    {
-        var step = _rotationSpeed * Time.deltaTime;
-        var target = Player.Instance.transform.rotation;
-        _sprite.transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
     }
     void Movement()
     {
@@ -89,7 +82,6 @@ public class Enemy: MonoBehaviour
                 }
                 break;
             case 3:
-                _speed = 2.5f;
                 transform.Translate(Vector3.down * _speed * Time.deltaTime);
                 if (transform.position.y < -6)
                 {
@@ -100,37 +92,34 @@ public class Enemy: MonoBehaviour
     }
     public void Damage()
     {
-        if (_isShieldActive == false)
-        {
             _lives--;
             if (_lives == 0)
             {
+                _speed = 0;
+                Destroy(GetComponent<Collider2D>());               
                 StopCoroutine(EnemyFireRoutine());
                 _sprite.color = Color.white;
                 _anim.SetTrigger("OnEnemyDeath");
                 _audio.PlayOneShot(_explosionClip);
-                _speed = 0;
-                Destroy(GetComponent<Collider2D>());
                 Destroy(this.gameObject, 1.3f);
                 Player.Instance.AddScore(10);
             }
-        }
-        else
-        {
-            _isShieldActive = false;
-            _enemyShield.SetActive(false);
-            ChangeID(2);
-            StartCoroutine(Kamikaze());
-           
-        }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
         
         if (other.tag == "Player" || other.tag == "Laser")
         {
-            Damage();
-           
+            if (_isShieldActive == false)
+            {
+                Damage();
+            }
+            else
+            {
+                _isShieldActive = false;
+                _enemyShield.SetActive(false);
+            }
+
             if (other.tag == "Player")
             {
                 Player.Instance.Damage();
@@ -178,16 +167,18 @@ public class Enemy: MonoBehaviour
         _speed = 4f;
         _sprite.color = Color.white;
     }
-    IEnumerator Kamikaze()
+    /*IEnumerator Kamikaze()
     {
         yield return new WaitForSeconds(1.5f);
+        ChangeID(2);
+        yield return new WaitForSeconds(1f);
         StopCoroutine(EnemyFireRoutine());
         _sprite.color = Color.white;
         _anim.SetTrigger("OnEnemyDeath");
         _audio.PlayOneShot(_explosionClip);
         _speed = 0;
         Destroy(GetComponent<Collider2D>());
-        Destroy(this.gameObject, 1.3f);
+        Destroy(this.gameObject, 0.5f);
         Player.Instance.AddScore(10);
-    }
+    }*/
 }

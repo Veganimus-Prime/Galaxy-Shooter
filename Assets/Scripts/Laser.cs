@@ -8,6 +8,8 @@ public class Laser : MonoBehaviour
     private float _speed = 8f;
     [SerializeField]
     private int _laserID;
+    [SerializeField]
+    private GameObject _explosion;
 
     void Update()
     {
@@ -51,18 +53,21 @@ public class Laser : MonoBehaviour
                         if (other.tag == "Enemy" || other.tag == "Asteroid")
                         {
                             Destroy(this.gameObject);
+                            Instantiate(_explosion, transform.position, Quaternion.identity);
                         }
                         break;
                     case 1://TripleShot
                         if (other.tag == "Enemy")
                         {
                             Destroy(this.gameObject);
+                            Instantiate(_explosion, transform.position, Quaternion.identity);
                         }
                         break;
                     case 2://IceBeam
                         if (other.tag == "Enemy")
                         {
                             Destroy(this.gameObject);
+                            Instantiate(_explosion, transform.position, Quaternion.identity);
                         }
                         break;
                 }
@@ -71,22 +76,26 @@ public class Laser : MonoBehaviour
                 if (other.tag == "Player")
                 {
                     Destroy(this.gameObject);
+                    Instantiate(_explosion, transform.position, Quaternion.identity);
                     Player.Instance.Damage();
                 }
                 else if (other.tag == "PowerUp")
                 {
                     Destroy(this.gameObject);
+                    Instantiate(_explosion, transform.position, Quaternion.identity);
                 }
                 break;
             case 2://EnemyX
                 if (other.tag == "Player")
                 {
                     Destroy(this.gameObject);
+                    Instantiate(_explosion, transform.position, Quaternion.identity);
                     Player.Instance.Damage();
                 }
                 else if (other.tag == "PowerUp")
                 {
                     Destroy(this.gameObject);
+                    Instantiate(_explosion, transform.position, Quaternion.identity);
                 }
                 break;
         }
