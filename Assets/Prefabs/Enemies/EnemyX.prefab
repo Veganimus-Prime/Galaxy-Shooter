@@ -265,9 +265,9 @@ MonoBehaviour:
   _isFrozen: 0
   _isShieldActive: 0
   _speed: 4
-  _enemyLaser: {fileID: 15968520002096042, guid: 85c260e451065744fafa683f1ab66e7b,
+  _enemyLaser: {fileID: 3280414382025692157, guid: 0868d4d21c171414f98cfcb18a71d408,
     type: 3}
   _enemyShield: {fileID: 0}
-  _laserOffset: {x: 0, y: 0.5, z: 0}
+  _laserOffset: {x: -1, y: 0, z: 0}
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}

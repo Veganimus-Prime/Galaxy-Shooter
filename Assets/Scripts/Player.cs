@@ -48,7 +48,6 @@ public class Player : MonoBehaviour
     private GameObject _leftDamage;
     [SerializeField]
     private GameObject _explosion;
-    [Header("Audio Clips")]
     [SerializeField]
     private AudioClip _laserClip, _tripleShotClip, _iceBeamClip, _homingClip, _magnetClip;
     [SerializeField]
@@ -65,7 +64,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        transform.position = new Vector3(0, -4, 0);
+        transform.position = new Vector3(0, -3, 0);
         _audio = GetComponent<AudioSource>();
         UIManager.Instance.UpdateAmmoCount(_ammoCount);
     }

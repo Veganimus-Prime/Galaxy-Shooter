@@ -5,15 +5,15 @@ using UnityEngine;
 public class Enemy: MonoBehaviour
 {
     [SerializeField]
-    protected int _enemyID;
+    private int _enemyID;
     [SerializeField]
     private int _lives = 1;
     [SerializeField]
-    protected bool _isFrozen = false;
+    private bool _isFrozen = false;
     [SerializeField]
     private bool _isShieldActive = false;
     [SerializeField]
-    protected float _speed = 4f;
+    private float _speed = 4f, _rotationSpeed = 2f;
     [SerializeField]
     protected GameObject _enemyLaser, _enemyShield;
     [SerializeField]
@@ -23,12 +23,9 @@ public class Enemy: MonoBehaviour
     protected SpriteRenderer _sprite;
     [SerializeField]
     protected AudioClip _explosionClip, _laserClip;
-
-    public object WorldPos { get; private set; }
-
     void Start()
     {
-        if(_enemyID == 3)
+        if (_enemyID == 3)
         {
             _enemyShield.SetActive(true);
             _isShieldActive = true;
@@ -48,14 +45,19 @@ public class Enemy: MonoBehaviour
         {
             Debug.LogError("Sprite Renderer is NULL!");
         }
-        if (_enemyID != 1)
-        {
-            StartCoroutine(EnemyFireRoutine());
-        }
+        StartCoroutine(EnemyFireRoutine());
+        
     }
     void Update()
     {
         Movement();
+        Rotation();
+    }
+    void Rotation()
+    {
+        var step = _rotationSpeed * Time.deltaTime;
+        var target = Player.Instance.transform.rotation;
+        _sprite.transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
     }
     void Movement()
     {
@@ -155,7 +157,18 @@ public class Enemy: MonoBehaviour
     protected IEnumerator EnemyFireRoutine()
     {
         yield return new WaitForSeconds(Random.Range(1.5f, 3));
-        Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+        switch (_enemyID)
+        {
+            case 0:
+                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.Euler(0,0, 90f));
+                break;
+            default:
+                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+                break;
+        }
         _audio.PlayOneShot(_laserClip);
     }
     IEnumerator EnemyThawRoutine()
