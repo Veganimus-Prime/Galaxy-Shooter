@@ -24,17 +24,23 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.R)&& _gameOver == true)
+        if (Input.GetKeyDown(KeyCode.R) && _gameOver == true)
         {
             SceneManager.LoadScene(1);
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
-        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             Pause();
+        }
+        if (Input.GetKeyDown(KeyCode.N)&& SpawnManager.Instance.nextWaveReady == true)
+        {
+            NextWave();
+            UIManager.Instance.waveCompleteText.SetActive(false);
+            UIManager.Instance.nextWaveText.SetActive(false);
         }
     }
     void Pause()
@@ -49,5 +55,9 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
             UIManager.Instance.PauseMenu(true);
         }
+    }
+    void NextWave()
+    {
+            SpawnManager.Instance.StartSpawning();
     }
 }

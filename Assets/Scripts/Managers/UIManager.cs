@@ -18,9 +18,11 @@ public class UIManager : MonoBehaviour
         }
     }
     public GameObject pauseMenu;
+    public GameObject waveCompleteText, nextWaveText;
     public Text scoreText;
     public Text ammoText;
     public Text auxillaryText;
+    public Text waveNumberText;
     public bool auxillaryCharging;
     [SerializeField]
     private Image _livesImg;
@@ -29,6 +31,7 @@ public class UIManager : MonoBehaviour
     private Sprite[] _livesSprite = new Sprite[4];
     [SerializeField]
     private GameObject _gameOverText, _restartText;
+    
     void Awake()
     {
         _instance = this;
@@ -36,6 +39,14 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         scoreText.text = "SCORE: " + 0;
+    }
+    public void WaveComplete()
+    {
+        if (SpawnManager.Instance.nextWaveReady == true)
+        {
+            waveCompleteText.SetActive(true);
+            nextWaveText.SetActive(true);
+        }
     }
     public void UpdateScore(int points)
     {

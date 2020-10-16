@@ -13,10 +13,6 @@ public class Laser : MonoBehaviour
 
     void Update()
     {
-        if (this.transform.parent != null)
-        {
-            Destroy(transform.parent.gameObject);
-        }
         switch (_laserID)
         {
             case 0://Player
@@ -24,6 +20,10 @@ public class Laser : MonoBehaviour
                 if (transform.position.y > 5)
                 {
                     Destroy(this.gameObject);
+                    if (this.transform.parent != null)
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
                 }
                 break;
             case 1://Enemy
@@ -31,14 +31,25 @@ public class Laser : MonoBehaviour
                 if (transform.position.y < -5)
                 {
                     Destroy(this.gameObject);
+                    if (this.transform.parent != null)
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
                 }
                 break;
             case 2://EnemyX
                 transform.Translate(Vector3.down * _speed * Time.deltaTime);
-                if (transform.position.y > 9)
+                if (transform.position.x > 9)
                 {
                     Destroy(this.gameObject);
+                    if (this.transform.parent != null)
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
                 }
+                break;
+            default:
+                Destroy(this.gameObject);
                 break;
         }
     }

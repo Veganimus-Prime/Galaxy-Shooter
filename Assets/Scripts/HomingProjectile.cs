@@ -13,9 +13,11 @@ public class HomingProjectile : MonoBehaviour
     private Enemy _enemy;
     [SerializeField]
     private GameObject _closest;
+    private Vector3 playerPos;
    
     void Start()
     {
+        playerPos = Player.Instance.transform.position;
         _enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<Enemy>();
         if(_enemy == null)
         {
@@ -39,7 +41,7 @@ public class HomingProjectile : MonoBehaviour
         else if (_energyAbsorbed == true && Player.Instance != null)
         {
             float step = _speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, Player.Instance.transform.position, step);
+            transform.position = Vector3.MoveTowards(transform.position, playerPos, step);
         }
         else
         {

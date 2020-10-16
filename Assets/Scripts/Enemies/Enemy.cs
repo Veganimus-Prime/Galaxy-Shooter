@@ -13,16 +13,17 @@ public class Enemy: MonoBehaviour
     [SerializeField]
     private bool _isShieldActive = false;
     [SerializeField]
-    private float _speed = 4f, _rotationSpeed = 2f;
+    private float _speed = 4f;
     [SerializeField]
     protected GameObject _enemyLaser, _enemyShield;
     [SerializeField]
-    protected Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
-    protected Animator _anim;
-    protected AudioSource _audio;
-    protected SpriteRenderer _sprite;
+    private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     [SerializeField]
-    protected AudioClip _explosionClip, _laserClip;
+    private AudioClip _explosionClip, _laserClip;
+    private Animator _anim;
+    private AudioSource _audio;
+    private SpriteRenderer _sprite;
+    
     void Start()
     {
         if (_enemyID == 3)
@@ -103,6 +104,7 @@ public class Enemy: MonoBehaviour
                 _audio.PlayOneShot(_explosionClip);
                 Destroy(this.gameObject, 1.3f);
                 Player.Instance.AddScore(10);
+                SpawnManager.Instance.EnemyKilled();
             }
     }
     void OnTriggerEnter2D(Collider2D other)

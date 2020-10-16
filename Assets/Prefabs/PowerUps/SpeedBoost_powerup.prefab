@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3750741814473190998}
   - component: {fileID: -6555515280597562834}
   m_Layer: 13
-  m_Name: SpeedBoost
+  m_Name: SpeedBoost_powerup
   m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _powerUpID: 1
+  _lives: 1
 --- !u!95 &8007003960491637321
 Animator:
   serializedVersion: 3
@@ -127,7 +128,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.022778392, y: 0.14806008}
