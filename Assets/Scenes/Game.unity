@@ -515,13 +515,14 @@ MonoBehaviour:
   _enemyContainer: {fileID: 503967270}
   _asteroidPrefab: {fileID: 4589981129134720435, guid: 937fb8011e28cd34b8254a16cfdc6e5b,
     type: 3}
-  _waveCount: 5
+  _waveCount: 6
   _enemyPrefab:
   - {fileID: 1758360892636477764, guid: f8bb8fcf0d5df484898d2ce5a87d364d, type: 3}
   - {fileID: 994535947649313517, guid: 4d178d23630a7be41a5c6cce33cec29c, type: 3}
   - {fileID: 2629655288130663451, guid: d0ed3fc43ab95d048b41688978c6c283, type: 3}
   - {fileID: 5846280678020885866, guid: 6017e5ee19294254686919b10f071a97, type: 3}
   - {fileID: 2609552997499358642, guid: 0cf37ec1520b33a42be51ce7d26702bf, type: 3}
+  - {fileID: 2813508489278070879, guid: 3e8518179a0acf0408a35950f53eaa3b, type: 3}
   _commonPowerUps:
   - {fileID: 5780172422776645027, guid: 268a86e993794184c852400092a80507, type: 3}
   _powerUps:

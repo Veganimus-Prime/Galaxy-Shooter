@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     private int _waveCount;
     private int _enemiesInWave, _spawnedEnemies, _enemiesRemaining;
     [SerializeField]
-    private GameObject[] _enemyPrefab = new GameObject[4];
+    private GameObject[] _enemyPrefab = new GameObject[5];
     [SerializeField]
     private GameObject[] _commonPowerUps = new GameObject[1];
     [SerializeField]
@@ -110,8 +110,11 @@ public class SpawnManager : MonoBehaviour
                 case 6:
                 _enemyToSpawn = Random.Range(0, 5);
                     break;
+                case 7:
+                    _enemyToSpawn = Random.Range(0, 6);
+                    break;
                 default:
-                    _enemyToSpawn = Random.Range(0, 4);
+                    _enemyToSpawn = Random.Range(0, 6);
                 break;
 
         }
@@ -138,6 +141,10 @@ public class SpawnManager : MonoBehaviour
                     GameObject newEnemy4 = Instantiate(_enemyPrefab[4], _posToSpawn[1], Quaternion.identity);
                     newEnemy4.transform.parent = _enemyContainer.transform;
                     break;
+                case 5:
+                    GameObject newEnemy5 = Instantiate(_enemyPrefab[5], _posToSpawn[0], Quaternion.identity);
+                    newEnemy5.transform.parent = _enemyContainer.transform;
+                    break;
         }
     }
     IEnumerator SpawnRoutine()
@@ -148,7 +155,6 @@ public class SpawnManager : MonoBehaviour
             {
                 yield return new WaitForSeconds(5f);
                 EnemySpawn(_enemyToSpawn);
-                //yield return new WaitForSeconds(5f);
             }
         }
     }

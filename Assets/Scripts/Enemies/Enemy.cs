@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy: MonoBehaviour
 {
     public float speed = 4f;
+    public bool isBehindPlayer = false;
     public GameObject thrusters;
     [SerializeField]
     private int _enemyID;
@@ -15,17 +16,20 @@ public class Enemy: MonoBehaviour
     [SerializeField]
     private bool _isShieldActive = false;
     [SerializeField]
-    private GameObject _enemyLaser, _enemyShield;
+    private GameObject _enemyLaser,_backFireLaser, _enemyShield;
     [SerializeField]
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     [SerializeField]
     private AudioClip _explosionClip, _laserClip;
+    [SerializeField]
+    private GameObject _closest;
     private Animator _anim;
     private AudioSource _audio;
     private SpriteRenderer _sprite;
     
     void Start()
     {
+        FindClosestTarget();
         if (_enemyID == 3)
         {
             _enemyShield.SetActive(true);
@@ -52,6 +56,10 @@ public class Enemy: MonoBehaviour
     void Update()
     {
         Movement();
+        if(transform.position.y < _closest.transform.position.y)
+        {
+            isBehindPlayer = true;
+        }
     }
     void Movement()
     {
@@ -146,25 +154,55 @@ public class Enemy: MonoBehaviour
     }
     public void EnemyFire()
     {
-        Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
-        _audio.PlayOneShot(_laserClip);
-    }
-    protected IEnumerator EnemyFireRoutine()
-    {
-        yield return new WaitForSeconds(Random.Range(1.5f, 3));
         switch (_enemyID)
         {
             case 0:
-                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+                if (isBehindPlayer == true && _backFireLaser != null)
+                {
+                    Instantiate(_backFireLaser, transform.position - _laserOffset, Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+                }
+
                 break;
             case 1:
-                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.Euler(0,0, 90f));
+                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.Euler(0, 0, 90f));
                 break;
             default:
                 Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
                 break;
         }
         _audio.PlayOneShot(_laserClip);
+    }
+    IEnumerator EnemyFireRoutine()
+    {
+        yield return new WaitForSeconds(Random.Range(1f, 2f));
+        EnemyFire();
+    }
+    private GameObject FindClosestTarget()
+    {
+        GameObject[] targets;
+        targets = GameObject.FindGameObjectsWithTag("Player");
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject target in targets)
+        {
+            Vector3 difference = target.transform.position - position;
+            float currentDistance = difference.sqrMagnitude;
+            if (currentDistance < distance)
+            {
+                _closest = target;
+                distance = currentDistance;
+            }
+        }
+        if (_closest != null)
+        {
+            Debug.Log(_closest.name);
+
+        }
+        return _closest;
     }
     IEnumerator EnemyThawRoutine()
     {

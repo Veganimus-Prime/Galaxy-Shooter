@@ -10,7 +10,7 @@ public class Laser : MonoBehaviour
     private int _laserID;
     [SerializeField]
     private GameObject _explosion;
-
+    
     void Update()
     {
         switch (_laserID)
@@ -40,6 +40,17 @@ public class Laser : MonoBehaviour
             case 2://EnemyX
                 transform.Translate(Vector3.down * _speed * Time.deltaTime);
                 if (transform.position.x > 9)
+                {
+                    Destroy(this.gameObject);
+                    if (this.transform.parent != null)
+                    {
+                        Destroy(transform.parent.gameObject);
+                    }
+                }
+                break;
+            case 3://Enemy backfire
+                transform.Translate(Vector3.up * _speed * Time.deltaTime);
+                if (transform.position.y > 5)
                 {
                     Destroy(this.gameObject);
                     if (this.transform.parent != null)
@@ -97,6 +108,19 @@ public class Laser : MonoBehaviour
                 }
                 break;
             case 2://EnemyX
+                if (other.tag == "Player")
+                {
+                    Destroy(this.gameObject);
+                    Instantiate(_explosion, transform.position, Quaternion.identity);
+                    Player.Instance.Damage();
+                }
+                else if (other.tag == "PowerUp")
+                {
+                    Destroy(this.gameObject);
+                    Instantiate(_explosion, transform.position, Quaternion.identity);
+                }
+                break;
+            case 3://Enemy Backfire
                 if (other.tag == "Player")
                 {
                     Destroy(this.gameObject);
