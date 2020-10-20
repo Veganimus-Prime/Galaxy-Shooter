@@ -21,10 +21,11 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _asteroidPrefab;
     private int _enemyToSpawn;
+    [SerializeField]
     private int _waveCount;
     private int _enemiesInWave, _spawnedEnemies, _enemiesRemaining;
     [SerializeField]
-    private GameObject[] _enemyPrefab = new GameObject[3];
+    private GameObject[] _enemyPrefab = new GameObject[4];
     [SerializeField]
     private GameObject[] _commonPowerUps = new GameObject[1];
     [SerializeField]
@@ -106,6 +107,9 @@ public class SpawnManager : MonoBehaviour
                 case 5:
                     _enemyToSpawn = Random.Range(0, 4);
                     break;
+                case 6:
+                _enemyToSpawn = Random.Range(0, 5);
+                    break;
                 default:
                     _enemyToSpawn = Random.Range(0, 4);
                 break;
@@ -130,7 +134,11 @@ public class SpawnManager : MonoBehaviour
                     GameObject newEnemy3 = Instantiate(_enemyPrefab[3], _posToSpawn[0], Quaternion.identity);
                     newEnemy3.transform.parent = _enemyContainer.transform;
                     break;
-            }
+                case 4:
+                    GameObject newEnemy4 = Instantiate(_enemyPrefab[4], _posToSpawn[1], Quaternion.identity);
+                    newEnemy4.transform.parent = _enemyContainer.transform;
+                    break;
+        }
     }
     IEnumerator SpawnRoutine()
     {
@@ -150,7 +158,7 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             Instantiate(_commonPowerUps[(Random.Range(0, 1))], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(4, 7));
+            yield return new WaitForSeconds(Random.Range(7, 10));
         }
     }
     IEnumerator PowerUpRoutine()
@@ -160,7 +168,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(7, 10));
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             Instantiate(_powerUps[(Random.Range(0,2))],posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(7, 10));
+            yield return new WaitForSeconds(Random.Range(10, 15));
         }
     }
     IEnumerator RarePowerUpRoutine()

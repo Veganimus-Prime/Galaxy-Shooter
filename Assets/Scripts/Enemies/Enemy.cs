@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy: MonoBehaviour
 {
+    public float speed = 4f;
+    public GameObject thrusters;
     [SerializeField]
     private int _enemyID;
     [SerializeField]
@@ -13,9 +15,7 @@ public class Enemy: MonoBehaviour
     [SerializeField]
     private bool _isShieldActive = false;
     [SerializeField]
-    private float _speed = 4f;
-    [SerializeField]
-    protected GameObject _enemyLaser, _enemyShield;
+    private GameObject _enemyLaser, _enemyShield;
     [SerializeField]
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     [SerializeField]
@@ -58,14 +58,14 @@ public class Enemy: MonoBehaviour
         switch (_enemyID)
         {
             case 0:
-                transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
                 if (transform.position.y < -6)
                 {
                     transform.position = new Vector3(Random.Range(-8, 8), 5, 0);
                 }
                 break;
             case 1:
-                transform.Translate(Vector3.right * _speed * Time.deltaTime);
+                transform.Translate(Vector3.right * speed * Time.deltaTime);
                 if (transform.position.x > 10)
                 {
                     transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
@@ -74,7 +74,7 @@ public class Enemy: MonoBehaviour
             case 2:
                 if (Player.Instance != null)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, Player.Instance.transform.position, 2f * _speed * Time.deltaTime);
+                    transform.position = Vector3.MoveTowards(transform.position, Player.Instance.transform.position, 2f * speed * Time.deltaTime);
                 }
                 if (transform.position.x > 10)
                 {
@@ -83,7 +83,7 @@ public class Enemy: MonoBehaviour
                 }
                 break;
             case 3:
-                transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
                 if (transform.position.y < -6)
                 {
                     transform.position = new Vector3(Random.Range(-8, 8), 5, 0);
@@ -96,7 +96,11 @@ public class Enemy: MonoBehaviour
             _lives--;
             if (_lives == 0)
             {
-                _speed = 0;
+                if (thrusters != null)
+                {
+                thrusters.SetActive(false);
+                }
+                speed = 0;
                 Destroy(GetComponent<Collider2D>());               
                 StopCoroutine(EnemyFireRoutine());
                 _sprite.color = Color.white;
@@ -131,7 +135,7 @@ public class Enemy: MonoBehaviour
         {
             StopCoroutine(EnemyFireRoutine());
             _isFrozen = true;
-            _speed = 0;
+            speed = 0;
             _sprite.color = Color.cyan;
             StartCoroutine(EnemyThawRoutine());
         }
@@ -166,7 +170,7 @@ public class Enemy: MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         _isFrozen = false;
-        _speed = 4f;
+        speed = 4f;
         _sprite.color = Color.white;
     }
     /*IEnumerator Kamikaze()

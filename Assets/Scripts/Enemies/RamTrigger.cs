@@ -13,21 +13,39 @@ public class RamTrigger : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (_triggerID == 0)
+        switch (_triggerID)
         {
-            if (other.tag == "Player" || other.tag == "Laser")
-            {
-                _enemy.ChangeID(2);
-                Destroy(this.gameObject);
-            }
+            case 0://ram
+                if (other.tag == "Player" || other.tag == "Laser")
+                {
+                    _enemy.ChangeID(2);
+                    _enemy.thrusters.SetActive(true);
+                    Destroy(this.gameObject);
+                }
+                break;
+            case 1:
+                if (other.tag == "PowerUp")
+                {
+                    _enemy.EnemyFire();
+                }
+                break;
+            case 2://proximity
+                if (other.tag == "Laser")
+                {
+                    _enemy.speed = 8;
+                    _enemy.thrusters.SetActive(true);
+                }
+                break;
+            default:
+                return;
         }
-        else if (_triggerID != 0 && other.tag == "PowerUp")
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (_triggerID == 2 && other.tag == "Laser")
         {
-            _enemy.EnemyFire();
-        }
-        else if (other.tag == "Player" || other.tag == "Laser")
-        {
-            return;
+            _enemy.speed = 4;
+            _enemy.thrusters.SetActive(false);
         }
     }
 }
