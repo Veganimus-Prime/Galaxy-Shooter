@@ -27,6 +27,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject[] _enemyPrefab = new GameObject[5];
     [SerializeField]
+    private GameObject _bossEnemy;
+    [SerializeField]
     private GameObject[] _commonPowerUps = new GameObject[1];
     [SerializeField]
     private GameObject[] _powerUps = new GameObject[2];
@@ -72,8 +74,18 @@ public class SpawnManager : MonoBehaviour
         Wave(_waveCount);
         _posToSpawn[0]= new Vector3(Random.Range(-8, 8), 7, 0);
         _posToSpawn[1] = new Vector3(-10, Random.Range(-3, 3), 0);
-
-        StartCoroutine(SpawnRoutine());
+        if (_waveCount < 7)
+        {
+            StartCoroutine(SpawnRoutine());
+            UIManager.Instance.waveNumberText.text = "Wave: " + _waveCount;
+        }
+        else
+        {
+            BossSpawn();
+            UIManager.Instance.waveNumberText.text = "FINAL BOSS! ";
+            UIManager.Instance.bossHealthText.text = "Boss Health: 100%";
+            AudioManager.Instance.BossMusic();
+        }
         StartCoroutine(CommonPowerUpRoutine());
         StartCoroutine(PowerUpRoutine());
         StartCoroutine(RarePowerUpRoutine());
@@ -146,6 +158,11 @@ public class SpawnManager : MonoBehaviour
                     newEnemy5.transform.parent = _enemyContainer.transform;
                     break;
         }
+    }
+    void BossSpawn()
+    {
+        GameObject bossEnemy = Instantiate(_bossEnemy, _posToSpawn[0], Quaternion.identity);
+        bossEnemy.transform.parent = _enemyContainer.transform;
     }
     IEnumerator SpawnRoutine()
     {

@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     public Text ammoText;
     public Text auxillaryText;
     public Text waveNumberText;
+    public Text bossHealthText;
     public bool auxillaryCharging;
     [SerializeField]
     private Image _livesImg;
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         scoreText.text = "SCORE: " + 0;
+        bossHealthText.text = "";
     }
     public void WaveComplete()
     {
@@ -99,6 +101,10 @@ public class UIManager : MonoBehaviour
         {
             auxillaryText.color = Color.white;
         }
+    }
+    public void UpdateBossHealth()
+    {
+        bossHealthText.text = "Boss Health: " + BossAI.Instance.lives *2 + "%";
     }
     public void PauseMenu(bool paused)
     {
