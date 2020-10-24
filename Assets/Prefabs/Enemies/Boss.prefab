@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3476ccc959d65b54ca0832fb1010b519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lives: 50
+  stopPos: {x: 0, y: 0, z: 0}
 --- !u!58 &2836503651989200229
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -272,7 +274,7 @@ MonoBehaviour:
   _zRotation: 0
   isPaired: 1
   _pairedObj: {fileID: 5513624563206727544}
-  _bossProjectile: {fileID: 3380892941319176159, guid: 284fecab8c176924fb449451a3a06770,
+  _bossProjectile: {fileID: 979121554216708804, guid: 48117f11e53b1dd479cfceee81782f6d,
     type: 3}
 --- !u!1 &5513624563206727544
 GameObject:
@@ -411,5 +413,5 @@ MonoBehaviour:
   _zRotation: 0
   isPaired: 1
   _pairedObj: {fileID: 5513624561605383350}
-  _bossProjectile: {fileID: 3380892941319176159, guid: 284fecab8c176924fb449451a3a06770,
+  _bossProjectile: {fileID: 979121554216708804, guid: 48117f11e53b1dd479cfceee81782f6d,
     type: 3}

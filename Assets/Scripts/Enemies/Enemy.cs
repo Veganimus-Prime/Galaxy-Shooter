@@ -211,18 +211,4 @@ public class Enemy: MonoBehaviour
         speed = 4f;
         _sprite.color = Color.white;
     }
-    /*IEnumerator Kamikaze()
-    {
-        yield return new WaitForSeconds(1.5f);
-        ChangeID(2);
-        yield return new WaitForSeconds(1f);
-        StopCoroutine(EnemyFireRoutine());
-        _sprite.color = Color.white;
-        _anim.SetTrigger("OnEnemyDeath");
-        _audio.PlayOneShot(_explosionClip);
-        _speed = 0;
-        Destroy(GetComponent<Collider2D>());
-        Destroy(this.gameObject, 0.5f);
-        Player.Instance.AddScore(10);
-    }*/
 }

@@ -111,6 +111,7 @@ public class Player : MonoBehaviour
     }
     void Auxillary()
     {
+        GaugeMeter.Instance.UpdateGauge(_auxillaryCharge);
         UIManager.Instance.UpdateAuxillaryCharge(_auxillaryCharge);
         if (_auxillaryCharge > 100)
         {

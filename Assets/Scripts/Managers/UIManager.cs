@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     public Text bossHealthText;
     public bool auxillaryCharging;
     [SerializeField]
+    private Graphic gauge;
+    [SerializeField]
     private Image _livesImg;
     private int _currentScore;
     [SerializeField]
@@ -41,6 +43,8 @@ public class UIManager : MonoBehaviour
     {
         scoreText.text = "SCORE: " + 0;
         bossHealthText.text = "";
+        gauge = GameObject.Find("Gauge_meter").GetComponent<Graphic>();
+        gauge.color = new Color32(0, 150, 0, 255);
     }
     public void WaveComplete()
     {
@@ -75,7 +79,7 @@ public class UIManager : MonoBehaviour
         else if(ammoCount >=15)
         {
             ammoText.text = "Ammo: MAX";
-            ammoText.color = Color.green;
+            ammoText.color = new Color32(0, 150, 0,255);
         }
         else
         {
@@ -84,23 +88,16 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateAuxillaryCharge(float auxillaryCharge)
     {
-        auxillaryText.text = "Aux. Power: " + auxillaryCharge;
-        if(auxillaryCharge == 0)
+        auxillaryText.text = "Aux. Power: " + auxillaryCharge + "%";
+         if(auxillaryCharge == 100)
         {
-            auxillaryText.color = Color.red;
-        }
-        else if(auxillaryCharge == 100)
-        {
-            auxillaryText.color = Color.green;
+           gauge.color = new Color32(0,150,0,255);
         }
         else if(auxillaryCharging == true)
         {
-            auxillaryText.color = Color.yellow;
+            gauge.color = Color.grey;
         }
-        else
-        {
-            auxillaryText.color = Color.white;
-        }
+        
     }
     public void UpdateBossHealth()
     {

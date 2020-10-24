@@ -6,7 +6,6 @@ public class BossEye : MonoBehaviour
 {
     [SerializeField]
     private float _turnSpeed = 200f;
-    private Player _closest;
     [SerializeField]
     private float _zRotation;
     [SerializeField]
@@ -20,7 +19,6 @@ public class BossEye : MonoBehaviour
     void Start()
     {
         _sprite = GetComponent<SpriteRenderer>();
-       // FindClosestTarget();
         if(isPaired == true)
         {
             _myPos = _pairedObj.transform.position;
@@ -37,44 +35,20 @@ public class BossEye : MonoBehaviour
     }
     private void TurretRotation()
     {
-        //Vector3 myLocation = transform.position;
         if (Player.Instance != null)
         {
-            Vector3 targetLocation = Player.Instance.transform.position;
-            targetLocation.z = _myPos.z; // no 3D rotation
-            Vector3 vectorToTarget = targetLocation - _myPos;
+            Vector3 _targetLocation = Player.Instance.transform.position;
+            _targetLocation.z = _myPos.z; // no 3D rotation
+            Vector3 vectorToTarget = _targetLocation - _myPos;
             Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, _zRotation) * vectorToTarget;
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * _turnSpeed);
-            Debug.DrawRay(transform.position, targetLocation);
+            Debug.DrawRay(transform.position, _targetLocation);
         }
         else
         {
             return;
         }
-    }
-    private Player FindClosestTarget()
-    {
-        Player[] targets;
-        targets = FindObjectsOfType<Player>();
-        float distance = Mathf.Infinity;
-        Vector3 position = transform.position;
-        foreach (Player target in targets)
-        {
-            Vector3 difference = target.transform.position - position;
-            float currentDistance = difference.sqrMagnitude;
-            if (currentDistance < distance)
-            {
-                _closest = target;
-                distance = currentDistance;
-            }
-        }
-        if (_closest != null)
-        {
-            Debug.Log(_closest.name);
-
-        }
-        return _closest;
     }
     void OnTriggerEnter2D(Collider2D other)
     {

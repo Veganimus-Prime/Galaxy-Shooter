@@ -16,8 +16,6 @@ public class BossAI : MonoBehaviour
             return _instance;
         }
     }
-
-    
     public int lives = 50;
     private float _speed = 2f;
     public Vector3 stopPos;
@@ -39,15 +37,20 @@ public class BossAI : MonoBehaviour
         {
             return;
         }
+        if(lives <=0)
+        {
+            lives = 0;
+            Destroy(this.gameObject);
+        }
     }
     void Damage(int amount)
     {
         if (lives > 0)
         {
-            lives-= amount;
+            lives -= amount;
             UIManager.Instance.UpdateBossHealth();
         }
-        else if(lives <=0)
+        else if (lives <= 0)
         {
             Destroy(this.gameObject);
         }
