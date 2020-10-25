@@ -8,23 +8,15 @@ public class Enemy: MonoBehaviour
     public bool isBehindPlayer = false;
     public GameObject thrusters;
     [SerializeField]
-    private int _enemyID;
+    private int _moveID, _lives = 1;
     [SerializeField]
-    private int _fireID;
-    [SerializeField]
-    private int _lives = 1;
-    [SerializeField]
-    private bool _isFrozen = false;
-    [SerializeField]
-    private bool _isShieldActive = false;
+    private bool _isFrozen = false, _isShieldActive = false;
     [SerializeField]
     private GameObject _enemyLaser, _backFireLaser, _enemyShield, _explosion;
     [SerializeField]
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     [SerializeField]
-    private float _zRotation;
-    [SerializeField]
-    private float _turnSpeed = 200f;
+    private float _zRotation, _turnSpeed = 200f;
     [SerializeField]
     private AudioClip _explosionClip, _laserClip;
     private AudioSource _audio;
@@ -34,11 +26,6 @@ public class Enemy: MonoBehaviour
     void Start()
     {
         _enemyRot = transform.rotation;
-        if (_enemyID == 3)
-        {
-            _enemyShield.SetActive(true);
-            _isShieldActive = true;
-        }
         _audio = GetComponentInChildren<AudioSource>();
         if (_audio == null)
         {
@@ -62,7 +49,7 @@ public class Enemy: MonoBehaviour
     }
     void Movement()
     {
-        switch (_enemyID)
+        switch (_moveID)
         {
             case 0://Down
                 transform.Translate(Vector3.up * speed * Time.deltaTime);
@@ -92,12 +79,14 @@ public class Enemy: MonoBehaviour
                     Debug.DrawRay(transform.position, _targetLocation);
                 }
                 break;
-        }
-           if (transform.position.x > 10)
+            case 3://Left
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
+                if (transform.position.x < -10)
                 {
-                    transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
-
+                    transform.position = new Vector3(10, Random.Range(-3, 3), 0);
                 }
+                break;
+        }
     }
     public void Damage()
     {
@@ -119,7 +108,7 @@ public class Enemy: MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         if (other.tag == "Player" || other.tag == "Laser")
         {
             if (_isShieldActive == false)
@@ -145,33 +134,33 @@ public class Enemy: MonoBehaviour
             _sprite.color = Color.cyan;
             StartCoroutine(EnemyThawRoutine());
         }
+        else if (other.tag == "Enemy" && _isFrozen == false)
+        {
+            if (_moveID == 0 && transform.position.y == 5)
+            {
+                transform.position = new Vector3(Random.Range(-8, 8), 5, 0);
+            }
+            else if (_moveID == 1 && transform.position.x == -10)
+            {
+                transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
+            }
+        }
     }
     public void ChangeID(int newID)
     {
-        _enemyID = newID;
+        _moveID = newID;
     }
     public void EnemyFire()
     {
-        switch (_fireID)
-        {
-            case 0://Vertical
                 if (isBehindPlayer == true && _backFireLaser != null)
                 {
-                    Instantiate(_backFireLaser, transform.position - _laserOffset, Quaternion.identity);
+                    Instantiate(_backFireLaser, transform.position - _laserOffset, _enemyRot);
                 }
                 else
                 {
-                    Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
+                    Instantiate(_enemyLaser, transform.position - _laserOffset, _enemyRot);
                 }
-
-                break;
-            case 1://Horizontal
-                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.Euler(0, 0, 90f));
-                break;
-            default:
-                Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.identity);
-                break;
-        }
+        
         _audio.PlayOneShot(_laserClip);
     }
     IEnumerator EnemyFireRoutine()

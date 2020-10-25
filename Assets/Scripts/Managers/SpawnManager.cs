@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     private int _waveCount;
     private int _enemiesInWave, _spawnedEnemies, _enemiesRemaining;
     [SerializeField]
-    private GameObject[] _enemyPrefab = new GameObject[5];
+    private GameObject[] _enemyPrefab = new GameObject[6];
     [SerializeField]
     private GameObject _bossEnemy;
     [SerializeField]
@@ -74,7 +74,7 @@ public class SpawnManager : MonoBehaviour
         Wave(_waveCount);
         _posToSpawn[0]= new Vector3(Random.Range(-8, 8), 7, 0);
         _posToSpawn[1] = new Vector3(-10, Random.Range(-3, 3), 0);
-        if (_waveCount < 7)
+        if (_waveCount < 9)
         {
             StartCoroutine(SpawnRoutine());
             UIManager.Instance.waveNumberText.text = "Wave: " + _waveCount;
@@ -125,8 +125,11 @@ public class SpawnManager : MonoBehaviour
                 case 7:
                     _enemyToSpawn = Random.Range(0, 6);
                     break;
+                case 8:
+                    _enemyToSpawn = Random.Range(0, 7);
+                    break;
                 default:
-                    _enemyToSpawn = Random.Range(0, 6);
+                    _enemyToSpawn = Random.Range(0, 7);
                 break;
 
         }
@@ -156,6 +159,10 @@ public class SpawnManager : MonoBehaviour
                 case 5://Backward fire
                     GameObject newEnemy5 = Instantiate(_enemyPrefab[5], _posToSpawn[0], Quaternion.Euler(0, 0, 180));
                     newEnemy5.transform.parent = _enemyContainer.transform;
+                    break;
+                case 6://Horizontal Basic
+                    GameObject newEnemy6 = Instantiate(_enemyPrefab[6], _posToSpawn[1], Quaternion.Euler(0, 0, 90));
+                    newEnemy6.transform.parent = _enemyContainer.transform;
                     break;
         }
     }

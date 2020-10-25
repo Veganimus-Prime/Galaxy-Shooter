@@ -27,7 +27,7 @@ public class Laser : MonoBehaviour
                 }
                 break;
             case 1://Enemy
-                transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                transform.Translate(Vector3.up * _speed * Time.deltaTime);
                 if (transform.position.y < -5)
                 {
                     Destroy(this.gameObject);
@@ -38,7 +38,7 @@ public class Laser : MonoBehaviour
                 }
                 break;
             case 2://EnemyX
-                transform.Translate(Vector3.down * _speed * Time.deltaTime);
+                transform.Translate(Vector3.up * _speed * Time.deltaTime);
                 if (transform.position.x > 9)
                 {
                     Destroy(this.gameObject);
@@ -49,7 +49,7 @@ public class Laser : MonoBehaviour
                 }
                 break;
             case 3://Enemy backfire
-                transform.Translate(Vector3.up * _speed * Time.deltaTime);
+                transform.Translate(Vector3.down * _speed * Time.deltaTime);
                 if (transform.position.y > 5)
                 {
                     Destroy(this.gameObject);

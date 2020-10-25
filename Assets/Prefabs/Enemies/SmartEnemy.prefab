@@ -346,7 +346,7 @@ MonoBehaviour:
   speed: 4
   isBehindPlayer: 0
   thrusters: {fileID: 7293411380976219347}
-  _enemyID: 1
+  _moveID: 1
   _fireID: 1
   _lives: 1
   _isFrozen: 0
