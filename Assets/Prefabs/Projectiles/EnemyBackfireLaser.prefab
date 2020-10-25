@@ -176,7 +176,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 6
-  _laserID: 3
+  _laserID: 1
+  _moveID: 1
   _explosion: {fileID: 3560289977455468647, guid: 76c9408f35797774595a64d05bf445d5,
     type: 3}
 --- !u!1 &6195603182819949100

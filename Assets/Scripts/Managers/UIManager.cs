@@ -88,7 +88,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateAuxillaryCharge(float auxillaryCharge)
     {
-        auxillaryText.text = "Aux. Power: " + auxillaryCharge + "%";
+        auxillaryText.text = "Power: " + auxillaryCharge + " %";
          if(auxillaryCharge == 100)
         {
            gauge.color = new Color32(0,150,0,255);

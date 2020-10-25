@@ -75,7 +75,6 @@ public class Player : MonoBehaviour
         Magnet();
         AuxShield();
         FireMode();
-
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             Shoot();
@@ -271,7 +270,7 @@ public class Player : MonoBehaviour
             case 3://IceBeam
                 _audio.PlayOneShot(_powerUpClip);
                 _fireMode = 2;
-                StartCoroutine(PowerUpCooldown(2));
+                StartCoroutine(PowerUpCooldown(0));
                 break;
             case 4: //+1 Life
                 _audio.PlayOneShot(_powerUpClip);
@@ -307,7 +306,7 @@ public class Player : MonoBehaviour
             case 7://LOC-NAR
                 _audio.PlayOneShot(_powerUpClip);
                 _fireMode = 3;
-                StartCoroutine(PowerUpCooldown(3));
+                StartCoroutine(PowerUpCooldown(0));
                 break;
             default:
                 Debug.Log("Default Power Up ID");
@@ -336,7 +335,7 @@ public class Player : MonoBehaviour
     {
         switch (powerUpID)
         {
-            case 0://TripleShot
+            case 0://Fire Mode
                 yield return new WaitForSeconds(5f);
                 _fireMode = 0;
                 break;
@@ -344,14 +343,6 @@ public class Player : MonoBehaviour
                 yield return new WaitForSeconds(5f);
                 _speed = _normalSpeed;
                 _speedBoostOn = false;
-                break;
-            case 2://IceBeam
-                yield return new WaitForSeconds(5f);
-                _fireMode = 0;
-                break;
-            case 3://LOC-NAR homing missile
-                yield return new WaitForSeconds(5f);
-                _fireMode = 0;
                 break;
             default:
                 Debug.Log("Default Power Up ID");

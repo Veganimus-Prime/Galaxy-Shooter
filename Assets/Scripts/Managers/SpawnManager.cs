@@ -34,7 +34,7 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _powerUps = new GameObject[2];
     [SerializeField]
     private GameObject[] _rarePowerUps = new GameObject[5];
-    private Vector3[] _posToSpawn = new Vector3[2];
+    private Vector3[] _posToSpawn = new Vector3[3];
     
     public bool stopSpawning = true;
     public bool nextWaveReady;
@@ -74,6 +74,7 @@ public class SpawnManager : MonoBehaviour
         Wave(_waveCount);
         _posToSpawn[0]= new Vector3(Random.Range(-8, 8), 7, 0);
         _posToSpawn[1] = new Vector3(-10, Random.Range(-3, 3), 0);
+        _posToSpawn[2] = new Vector3(10, Random.Range(-3, 3), 0);
         if (_waveCount < 9)
         {
             StartCoroutine(SpawnRoutine());
@@ -102,37 +103,7 @@ public class SpawnManager : MonoBehaviour
     public void EnemySpawn(int _enemyToSpawn)
     {
             _spawnedEnemies++;
-            switch (_waveCount)
-            {
-                case 1:
-                    _enemyToSpawn = 0;
-                    break;
-                case 2:
-                    _enemyToSpawn = Random.Range(0, 1);
-                    break;
-                case 3:
-                    _enemyToSpawn = Random.Range(0, 2);
-                    break;
-                case 4:
-                    _enemyToSpawn = Random.Range(0, 3);
-                    break;
-                case 5:
-                    _enemyToSpawn = Random.Range(0, 4);
-                    break;
-                case 6:
-                _enemyToSpawn = Random.Range(0, 5);
-                    break;
-                case 7:
-                    _enemyToSpawn = Random.Range(0, 6);
-                    break;
-                case 8:
-                    _enemyToSpawn = Random.Range(0, 7);
-                    break;
-                default:
-                    _enemyToSpawn = Random.Range(0, 7);
-                break;
-
-        }
+            _enemyToSpawn = Random.Range(0, _waveCount - 1);
             switch (_enemyToSpawn)
             {
                 case 0://Basic
@@ -160,8 +131,8 @@ public class SpawnManager : MonoBehaviour
                     GameObject newEnemy5 = Instantiate(_enemyPrefab[5], _posToSpawn[0], Quaternion.Euler(0, 0, 180));
                     newEnemy5.transform.parent = _enemyContainer.transform;
                     break;
-                case 6://Horizontal Basic
-                    GameObject newEnemy6 = Instantiate(_enemyPrefab[6], _posToSpawn[1], Quaternion.Euler(0, 0, 90));
+                case 6://Horizontal Missile
+                    GameObject newEnemy6 = Instantiate(_enemyPrefab[6], _posToSpawn[2], Quaternion.Euler(0, 0, 90));
                     newEnemy6.transform.parent = _enemyContainer.transform;
                     break;
         }

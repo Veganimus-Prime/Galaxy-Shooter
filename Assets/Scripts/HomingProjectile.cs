@@ -30,18 +30,18 @@ public class HomingProjectile : MonoBehaviour
     }
     void Update()
     {
-        if (_closest == null)
+        if (_energyAbsorbed == true && Player.Instance != null) 
+        {
+            float step = _speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, playerPos, step);
+        }
+        else if (_closest == null)
         {
             transform.Translate(Vector3.up * _speed * Time.deltaTime);
             if (transform.position.y > 5)
             {
                 Destroy(this.gameObject);
             }
-        }
-        else if (_energyAbsorbed == true && Player.Instance != null)
-        {
-            float step = _speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, playerPos, step);
         }
         else
         {

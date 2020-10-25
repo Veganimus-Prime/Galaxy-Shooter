@@ -265,11 +265,10 @@ MonoBehaviour:
   isBehindPlayer: 0
   thrusters: {fileID: 0}
   _moveID: 1
-  _fireID: 1
   _lives: 1
   _isFrozen: 0
   _isShieldActive: 0
-  _enemyLaser: {fileID: 3280414382025692157, guid: 0868d4d21c171414f98cfcb18a71d408,
+  _enemyLaser: {fileID: 15968520002096042, guid: 85c260e451065744fafa683f1ab66e7b,
     type: 3}
   _backFireLaser: {fileID: 0}
   _enemyShield: {fileID: 0}

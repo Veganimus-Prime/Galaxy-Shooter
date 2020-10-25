@@ -515,7 +515,7 @@ MonoBehaviour:
   _enemyContainer: {fileID: 503967270}
   _asteroidPrefab: {fileID: 4589981129134720435, guid: 937fb8011e28cd34b8254a16cfdc6e5b,
     type: 3}
-  _waveCount: 7
+  _waveCount: 0
   _enemyPrefab:
   - {fileID: 1758360892636477764, guid: f8bb8fcf0d5df484898d2ce5a87d364d, type: 3}
   - {fileID: 994535947649313517, guid: 4d178d23630a7be41a5c6cce33cec29c, type: 3}
