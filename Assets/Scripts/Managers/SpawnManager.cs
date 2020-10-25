@@ -132,29 +132,29 @@ public class SpawnManager : MonoBehaviour
         }
             switch (_enemyToSpawn)
             {
-                case 0:
-                    GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.identity);
+                case 0://Basic
+                    GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.Euler(0, 0, 180));
                     newEnemy0.transform.parent = _enemyContainer.transform;
                     break;
 
-                case 1:
-                    GameObject newEnemy1 = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.identity);
+                case 1://Horizontal Basic
+                    GameObject newEnemy1 = Instantiate(_enemyPrefab[1], _posToSpawn[1], Quaternion.Euler(0, 0, -90));
                     newEnemy1.transform.parent = _enemyContainer.transform;
                     break;
-                case 2:
-                    GameObject newEnemy2 = Instantiate(_enemyPrefab[2], _posToSpawn[0], Quaternion.identity);
+                case 2://Ram
+                    GameObject newEnemy2 = Instantiate(_enemyPrefab[2], _posToSpawn[0], Quaternion.Euler(0,0,180));
                     newEnemy2.transform.parent = _enemyContainer.transform;
                     break;
-                case 3:
-                    GameObject newEnemy3 = Instantiate(_enemyPrefab[3], _posToSpawn[0], Quaternion.identity);
+                case 3://Shield
+                    GameObject newEnemy3 = Instantiate(_enemyPrefab[3], _posToSpawn[0], Quaternion.Euler(0, 0, 180));
                     newEnemy3.transform.parent = _enemyContainer.transform;
                     break;
-                case 4:
-                    GameObject newEnemy4 = Instantiate(_enemyPrefab[4], _posToSpawn[1], Quaternion.identity);
+                case 4://Evader
+                    GameObject newEnemy4 = Instantiate(_enemyPrefab[4], _posToSpawn[1], Quaternion.Euler(0,0,-90));
                     newEnemy4.transform.parent = _enemyContainer.transform;
                     break;
-                case 5:
-                    GameObject newEnemy5 = Instantiate(_enemyPrefab[5], _posToSpawn[0], Quaternion.identity);
+                case 5://Backward fire
+                    GameObject newEnemy5 = Instantiate(_enemyPrefab[5], _posToSpawn[0], Quaternion.Euler(0, 0, 180));
                     newEnemy5.transform.parent = _enemyContainer.transform;
                     break;
         }

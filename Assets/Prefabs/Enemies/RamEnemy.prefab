@@ -23,7 +23,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71272471665770}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.9999975, w: -0.0022415693}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -31,7 +31,7 @@ Transform:
   - {fileID: 2260623077706570361}
   m_Father: {fileID: 150581481691298476}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180.25699}
 --- !u!1 &839640849014565662
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +220,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2629655288130663451}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -230,7 +230,7 @@ Transform:
   - {fileID: 314724695774099678}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &180580425652945484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,15 +244,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  isBehindPlayer: 0
   thrusters: {fileID: 71272471665770}
   _enemyID: 0
+  _fireID: 0
   _lives: 1
   _isFrozen: 0
   _isShieldActive: 0
   _enemyLaser: {fileID: 15968520002096042, guid: 85c260e451065744fafa683f1ab66e7b,
     type: 3}
+  _backFireLaser: {fileID: 0}
   _enemyShield: {fileID: 839640849014565662}
+  _explosion: {fileID: 2943400665140209504, guid: 281dee420b58660428180f461f601ec4,
+    type: 3}
   _laserOffset: {x: 0, y: 0.5, z: 0}
+  _zRotation: 0
+  _turnSpeed: 200
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!61 &5370609008226397450
@@ -409,7 +416,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5357129515758346489}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children: []
@@ -627,7 +634,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -2.92}
+  m_Offset: {x: 0, y: 2.14}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

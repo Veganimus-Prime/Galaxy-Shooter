@@ -52,6 +52,7 @@ MonoBehaviour:
   isBehindPlayer: 0
   thrusters: {fileID: 0}
   _enemyID: 0
+  _fireID: 0
   _lives: 1
   _isFrozen: 0
   _isShieldActive: 0
@@ -60,10 +61,13 @@ MonoBehaviour:
   _backFireLaser: {fileID: 0}
   _enemyShield: {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d,
     type: 3}
+  _explosion: {fileID: 2943400665140209504, guid: 281dee420b58660428180f461f601ec4,
+    type: 3}
   _laserOffset: {x: 0, y: 0.5, z: 0}
+  _zRotation: 0
+  _turnSpeed: 200
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _closest: {fileID: 0}
 --- !u!61 &8543511110979985493
 BoxCollider2D:
   m_ObjectHideFlags: 0

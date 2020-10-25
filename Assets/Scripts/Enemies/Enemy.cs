@@ -10,35 +10,34 @@ public class Enemy: MonoBehaviour
     [SerializeField]
     private int _enemyID;
     [SerializeField]
+    private int _fireID;
+    [SerializeField]
     private int _lives = 1;
     [SerializeField]
     private bool _isFrozen = false;
     [SerializeField]
     private bool _isShieldActive = false;
     [SerializeField]
-    private GameObject _enemyLaser,_backFireLaser, _enemyShield;
+    private GameObject _enemyLaser, _backFireLaser, _enemyShield, _explosion;
     [SerializeField]
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     [SerializeField]
-    private AudioClip _explosionClip, _laserClip;
+    private float _zRotation;
     [SerializeField]
-    private GameObject _closest;
-    private Animator _anim;
+    private float _turnSpeed = 200f;
+    [SerializeField]
+    private AudioClip _explosionClip, _laserClip;
     private AudioSource _audio;
     private SpriteRenderer _sprite;
+    private Quaternion _enemyRot;
     
     void Start()
     {
-        FindClosestTarget();
+        _enemyRot = transform.rotation;
         if (_enemyID == 3)
         {
             _enemyShield.SetActive(true);
             _isShieldActive = true;
-        }
-        _anim = GetComponentInChildren<Animator>();
-        if (_anim == null)
-        {
-            Debug.LogError("Animator is NULL!");
         }
         _audio = GetComponentInChildren<AudioSource>();
         if (_audio == null)
@@ -56,7 +55,7 @@ public class Enemy: MonoBehaviour
     void Update()
     {
         Movement();
-        if(transform.position.y < _closest.transform.position.y)
+        if(transform.position.y < Player.Instance.transform.position.y)
         {
             isBehindPlayer = true;
         }
@@ -65,39 +64,40 @@ public class Enemy: MonoBehaviour
     {
         switch (_enemyID)
         {
-            case 0:
-                transform.Translate(Vector3.down * speed * Time.deltaTime);
+            case 0://Down
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
                 if (transform.position.y < -6)
                 {
                     transform.position = new Vector3(Random.Range(-8, 8), 5, 0);
                 }
                 break;
-            case 1:
-                transform.Translate(Vector3.right * speed * Time.deltaTime);
+            case 1://Right
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
                 if (transform.position.x > 10)
                 {
                     transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
                 }
                 break;
-            case 2:
+            case 2://Chase Player
                 if (Player.Instance != null)
                 {
                     transform.position = Vector3.MoveTowards(transform.position, Player.Instance.transform.position, 2f * speed * Time.deltaTime);
-                }
-                if (transform.position.x > 10)
-                {
-                    transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
-                   
-                }
-                break;
-            case 3:
-                transform.Translate(Vector3.down * speed * Time.deltaTime);
-                if (transform.position.y < -6)
-                {
-                    transform.position = new Vector3(Random.Range(-8, 8), 5, 0);
+                    Vector3 _myPos = transform.position;
+                    Vector3 _targetLocation = Player.Instance.transform.position;
+                    _targetLocation.z = _myPos.z; // no 3D rotation
+                    Vector3 vectorToTarget = _targetLocation - _myPos;
+                    Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, _zRotation) * vectorToTarget;
+                    Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * _turnSpeed);
+                    Debug.DrawRay(transform.position, _targetLocation);
                 }
                 break;
         }
+           if (transform.position.x > 10)
+                {
+                    transform.position = new Vector3(-10, Random.Range(-3, 3), 0);
+
+                }
     }
     public void Damage()
     {
@@ -109,12 +109,10 @@ public class Enemy: MonoBehaviour
                 thrusters.SetActive(false);
                 }
                 speed = 0;
-                Destroy(GetComponent<Collider2D>());               
-                StopCoroutine(EnemyFireRoutine());
+                Instantiate(_explosion, transform.position - _laserOffset, _enemyRot);
                 _sprite.color = Color.white;
-                _anim.SetTrigger("OnEnemyDeath");
                 _audio.PlayOneShot(_explosionClip);
-                Destroy(this.gameObject, 1.3f);
+                Destroy(this.gameObject);
                 Player.Instance.AddScore(10);
                 SpawnManager.Instance.EnemyKilled();
             }
@@ -154,9 +152,9 @@ public class Enemy: MonoBehaviour
     }
     public void EnemyFire()
     {
-        switch (_enemyID)
+        switch (_fireID)
         {
-            case 0:
+            case 0://Vertical
                 if (isBehindPlayer == true && _backFireLaser != null)
                 {
                     Instantiate(_backFireLaser, transform.position - _laserOffset, Quaternion.identity);
@@ -167,7 +165,7 @@ public class Enemy: MonoBehaviour
                 }
 
                 break;
-            case 1:
+            case 1://Horizontal
                 Instantiate(_enemyLaser, transform.position - _laserOffset, Quaternion.Euler(0, 0, 90f));
                 break;
             default:
@@ -180,29 +178,6 @@ public class Enemy: MonoBehaviour
     {
         yield return new WaitForSeconds(Random.Range(1f, 2f));
         EnemyFire();
-    }
-    private GameObject FindClosestTarget()
-    {
-        GameObject[] targets;
-        targets = GameObject.FindGameObjectsWithTag("Player");
-        float distance = Mathf.Infinity;
-        Vector3 position = transform.position;
-        foreach (GameObject target in targets)
-        {
-            Vector3 difference = target.transform.position - position;
-            float currentDistance = difference.sqrMagnitude;
-            if (currentDistance < distance)
-            {
-                _closest = target;
-                distance = currentDistance;
-            }
-        }
-        if (_closest != null)
-        {
-            Debug.Log(_closest.name);
-
-        }
-        return _closest;
     }
     IEnumerator EnemyThawRoutine()
     {

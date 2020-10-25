@@ -158,7 +158,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 5f60d51498ea18a4c9a1b883f25fe440, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de85e36f1fbe1234eb6fd5f4743051f1, type: 3}
   m_Color: {r: 0.9433962, g: 0.8533114, b: 0.31594875, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -344,15 +344,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  isBehindPlayer: 0
   thrusters: {fileID: 7293411380976219347}
   _enemyID: 1
+  _fireID: 1
   _lives: 1
   _isFrozen: 0
   _isShieldActive: 0
   _enemyLaser: {fileID: 3280414382025692157, guid: 0868d4d21c171414f98cfcb18a71d408,
     type: 3}
+  _backFireLaser: {fileID: 0}
   _enemyShield: {fileID: 0}
+  _explosion: {fileID: 2943400665140209504, guid: 281dee420b58660428180f461f601ec4,
+    type: 3}
   _laserOffset: {x: -1, y: 0, z: 0}
+  _zRotation: 0
+  _turnSpeed: 200
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
 --- !u!1 &6663656621190157033
@@ -461,15 +468,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7293411380976219347}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5568658, y: 0.11049461, z: -0.44030926}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.07, y: -0.58, z: -0.44030926}
   m_LocalScale: {x: 1.3333334, y: 1.3333334, z: 1.3333334}
   m_Children:
   - {fileID: 2227416053814109699}
   - {fileID: 113385925448344362}
   m_Father: {fileID: 890314298595744767}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1 &8394528229851958364
 GameObject:
   m_ObjectHideFlags: 0

@@ -133,6 +133,7 @@ MonoBehaviour:
   isBehindPlayer: 0
   thrusters: {fileID: 0}
   _enemyID: 0
+  _fireID: 0
   _lives: 1
   _isFrozen: 0
   _isShieldActive: 0
@@ -141,10 +142,13 @@ MonoBehaviour:
   _backFireLaser: {fileID: 3380892941319176159, guid: 284fecab8c176924fb449451a3a06770,
     type: 3}
   _enemyShield: {fileID: 635850299388329818}
+  _explosion: {fileID: 2943400665140209504, guid: 281dee420b58660428180f461f601ec4,
+    type: 3}
   _laserOffset: {x: 0, y: 0.5, z: 0}
+  _zRotation: 0
+  _turnSpeed: 200
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
-  _closest: {fileID: 0}
 --- !u!61 &5331631857508202830
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -264,8 +268,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 3154912113cbb4a498df6f571c74e18c, type: 3}
-  m_Color: {r: 1, g: 0.6179246, b: 0.8589486, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8438a790598af754ea118598c783c9f7, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
