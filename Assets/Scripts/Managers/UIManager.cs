@@ -17,10 +17,15 @@ public class UIManager : MonoBehaviour
             return _instance;
         }
     }
+    [SerializeField]
+    private GameObject _staticCanvas;
+    [SerializeField]
+    private GameObject _activeCanvas;
     public GameObject pauseMenu;
     public GameObject waveCompleteText, nextWaveText;
     public Text scoreText;
     public Text ammoText;
+    public Text reserveAmmoText;
     public Text auxillaryText;
     public Text waveNumberText;
     public Text bossHealthText;
@@ -29,22 +34,42 @@ public class UIManager : MonoBehaviour
     private Graphic gauge;
     [SerializeField]
     private Image _livesImg;
-    private int _currentScore;
+    public static int currentScore;
     [SerializeField]
-    private Sprite[] _livesSprite = new Sprite[4];
+    private List<Sprite> _livesSprite = new List<Sprite>();
     [SerializeField]
     private GameObject _gameOverText, _restartText;
-    
+    [SerializeField]
+    private Animator _scoreAnim;
+    [SerializeField]
+    private Animator _ammoAnim;
+    public static int playerAmmo;
+    private WaitForSeconds _flickerTime;
+
     void Awake()
     {
         _instance = this;
+        _flickerTime = new WaitForSeconds(0.75f);
+        
     }
     void Start()
     {
-        scoreText.text = "SCORE: " + 0;
+        _activeCanvas.SetActive(true);
+        scoreText.text = "0000";
         bossHealthText.text = "";
-        gauge = GameObject.Find("Gauge_meter").GetComponent<Graphic>();
+        gauge = GameObject.Find("Gauge_meter").GetComponentInChildren<Graphic>();
         gauge.color = new Color32(0, 150, 0, 255);
+       /* _scoreAnim = GameObject.Find("Score_text").GetComponentInChildren<Animator>();
+            if(_scoreAnim == null)
+            {
+            Debug.LogError("Score Animator is null");
+            }
+        _ammoAnim = GameObject.Find("Ammo_Count_text").GetComponentInChildren<Animator>();
+        if (_ammoAnim == null)
+        {
+            Debug.LogError("Ammo Animator is null");
+        }*/
+
     }
     public void WaveComplete()
     {
@@ -56,8 +81,9 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateScore(int points)
     {
-        _currentScore = points;
-        scoreText.text = "SCORE: " + _currentScore;
+        currentScore += points;
+        scoreText.text = currentScore.ToString("000#");
+        //_scoreAnim.SetTrigger("AddScore");
     }
     public void UpdateLives(int currentLives)
     {
@@ -71,24 +97,30 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateAmmoCount(int ammoCount)
     {
-        ammoText.text = "Ammo: " + ammoCount;
-        if(ammoCount == 0)
+        playerAmmo = ammoCount;
+        ammoText.text = playerAmmo.ToString();
+        //_ammoAnim.SetInteger("Ammo", playerAmmo);
+        if(playerAmmo == 0)
         {
-            ammoText.color = Color.red;
+            ammoText.text = "RELOAD!";
+            //_ammoAnim.SetTrigger("Reload");
         }
-        else if(ammoCount >=15)
+    }
+    public void UpdateReserveAmmo(int reserve)
+    {
+        reserveAmmoText.text = reserve.ToString();
+        if (reserve == 0)
         {
-            ammoText.text = "Ammo: MAX";
-            ammoText.color = new Color32(0, 150, 0,255);
+            reserveAmmoText.color = Color.red;
         }
         else
         {
-            ammoText.color = Color.white;
+            reserveAmmoText.color = Color.white;
         }
     }
     public void UpdateAuxillaryCharge(float auxillaryCharge)
     {
-        auxillaryText.text = "Power: " + auxillaryCharge + " %";
+        auxillaryText.text = "Power: " + auxillaryCharge.ToString()+ "%";
          if(auxillaryCharge == 100)
         {
            gauge.color = new Color32(0,150,0,255);
@@ -101,7 +133,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateBossHealth()
     {
-        bossHealthText.text = "Boss Health: " + BossAI.Instance.lives *2 + "%";
+        bossHealthText.text = "Boss Health: " + BossAI.Instance.BossLives *2 + "%";
     }
     public void PauseMenu(bool paused)
     {
@@ -112,9 +144,9 @@ public class UIManager : MonoBehaviour
         while (true)
         {
             _gameOverText.SetActive(true);
-            yield return new WaitForSeconds(0.75f);
+            yield return _flickerTime;
             _gameOverText.SetActive(false);
-            yield return new WaitForSeconds(0.75f);
+            yield return _flickerTime;
         }
     }
 }

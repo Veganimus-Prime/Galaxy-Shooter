@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class BossEye : MonoBehaviour
 {
     [SerializeField]
-    private float _turnSpeed = 200f;
+    private static float _turnSpeed = 200f;
     [SerializeField]
     private float _zRotation;
     [SerializeField]

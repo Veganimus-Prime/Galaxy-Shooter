@@ -4,9 +4,17 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - _enemyLaser: {fileID: 15968520002096042, guid: 3567a87dc329043489e89cb4cd8f8e7b,
+  - thrusters: {fileID: 6433056160019958834, guid: e30a94375f2042d43b28e285d90d390b,
       type: 3}
+  - _enemyLaser: {fileID: 15968520002096042, guid: 85c260e451065744fafa683f1ab66e7b,
+      type: 3}
+  - _backFireLaser: {fileID: 3380892941319176159, guid: 284fecab8c176924fb449451a3a06770,
+      type: 3}
+  - _enemyShield: {fileID: 7183476393950354994, guid: 5038e8653407dd345a904094c462c82e,
+      type: 3}
+  - _explosion: {instanceID: 0}
   - _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
+  - _laserClip: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

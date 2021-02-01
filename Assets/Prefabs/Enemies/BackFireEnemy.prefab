@@ -129,11 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f974dfdaebba74ba212f0d5c98aece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveID: 0
+  _enemyType: 6
   speed: 4
   isBehindPlayer: 0
   thrusters: {fileID: 0}
-  _enemyID: 0
-  _fireID: 0
   _lives: 1
   _isFrozen: 0
   _isShieldActive: 0
@@ -146,9 +146,14 @@ MonoBehaviour:
     type: 3}
   _laserOffset: {x: 0, y: 0.5, z: 0}
   _zRotation: 0
-  _turnSpeed: 200
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  targetPlayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  targetPowerUp:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!61 &5331631857508202830
 BoxCollider2D:
   m_ObjectHideFlags: 0

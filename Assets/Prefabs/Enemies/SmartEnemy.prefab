@@ -343,12 +343,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f974dfdaebba74ba212f0d5c98aece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  isBehindPlayer: 0
-  thrusters: {fileID: 7293411380976219347}
   _moveID: 1
-  _fireID: 1
+  _enemyType: 5
+  speed: 4
+  thrusters: {fileID: 7293411380976219347}
   _lives: 1
+  _scoreValue: 10
   _isFrozen: 0
   _isShieldActive: 0
   _enemyLaser: {fileID: 3280414382025692157, guid: 0868d4d21c171414f98cfcb18a71d408,
@@ -359,9 +359,14 @@ MonoBehaviour:
     type: 3}
   _laserOffset: {x: -1, y: 0, z: 0}
   _zRotation: 0
-  _turnSpeed: 200
   _explosionClip: {fileID: 8300000, guid: a885c043fab7e46438bba03ba9dab6bc, type: 3}
   _laserClip: {fileID: 8300000, guid: 75676f361bdfeaf41a46623e95df3dbc, type: 3}
+  targetPlayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  targetPowerUp:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1 &6663656621190157033
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +378,6 @@ GameObject:
   - component: {fileID: 2698487194411938864}
   - component: {fileID: 8718854256879706558}
   - component: {fileID: 6070313726117529993}
-  - component: {fileID: 8130378223902200342}
   m_Layer: 0
   m_Name: ProximityDetector
   m_TagString: Untagged
@@ -432,19 +436,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8130378223902200342
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6663656621190157033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07782b21e06dbd043af2e707c4d2a35a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _triggerID: 2
 --- !u!1 &7293411380976219347
 GameObject:
   m_ObjectHideFlags: 0

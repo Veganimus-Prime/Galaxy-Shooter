@@ -21,26 +21,34 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject _asteroidPrefab;
     private int _enemyToSpawn;
-    [SerializeField]
+    [SerializeField][Range(0,8)]
     private int _waveCount;
     private int _enemiesInWave, _spawnedEnemies, _enemiesRemaining;
     [SerializeField]
-    private GameObject[] _enemyPrefab = new GameObject[6];
+    private List<GameObject> _enemyPrefab = new List<GameObject>();
     [SerializeField]
     private GameObject _bossEnemy;
     [SerializeField]
-    private GameObject[] _commonPowerUps = new GameObject[1];
+    private List<GameObject> _commonPowerUps = new List<GameObject>();
     [SerializeField]
-    private GameObject[] _powerUps = new GameObject[2];
+    private List<GameObject> _powerUps = new List<GameObject>();
     [SerializeField]
-    private GameObject[] _rarePowerUps = new GameObject[5];
-    private Vector3[] _posToSpawn = new Vector3[3];
-    
+    private List<GameObject> _rarePowerUps = new List<GameObject>();
+    [SerializeField]
+    private List<Vector3> _posToSpawn = new List<Vector3>();
+    private WaitForSeconds _spawnTimer;
+    private WaitForSeconds _commonPowerUpTimer;
+    private WaitForSeconds _powerUpTimer;
+    private WaitForSeconds _rarePowerUpTimer;
     public bool stopSpawning = true;
     public bool nextWaveReady;
     void Awake()
     {
         _instance = this;
+        _spawnTimer = new WaitForSeconds(5f);
+        _commonPowerUpTimer = new WaitForSeconds(8);
+        _powerUpTimer = new WaitForSeconds(12);
+        _rarePowerUpTimer = new WaitForSeconds(16);
     }
     void Start()
     {
@@ -70,15 +78,15 @@ public class SpawnManager : MonoBehaviour
         nextWaveReady = false;
         _spawnedEnemies = 0;
         _waveCount++;
-        UIManager.Instance.waveNumberText.text = "Wave: " + _waveCount;
+        UIManager.Instance.waveNumberText.text = _waveCount.ToString();
         Wave(_waveCount);
-        _posToSpawn[0]= new Vector3(Random.Range(-8, 8), 7, 0);
+        _posToSpawn[0] = new Vector3(Random.Range(-8, 8), 7, 0);
         _posToSpawn[1] = new Vector3(-10, Random.Range(-3, 3), 0);
         _posToSpawn[2] = new Vector3(10, Random.Range(-3, 3), 0);
         if (_waveCount < 9)
         {
             StartCoroutine(SpawnRoutine());
-            UIManager.Instance.waveNumberText.text = "Wave: " + _waveCount;
+            UIManager.Instance.waveNumberText.text =  _waveCount.ToString();
         }
         else
         {
@@ -107,7 +115,7 @@ public class SpawnManager : MonoBehaviour
             switch (_enemyToSpawn)
             {
                 case 0://Basic
-                    GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.Euler(0, 0, 180));
+                    GameObject newEnemy0 = Instantiate(_enemyPrefab[0], _posToSpawn[0], Quaternion.Euler(-180, -90, 90));
                     newEnemy0.transform.parent = _enemyContainer.transform;
                     break;
 
@@ -148,7 +156,7 @@ public class SpawnManager : MonoBehaviour
         {
             for (int i = 0; i < _enemiesInWave; i++)
             {
-                yield return new WaitForSeconds(5f);
+                yield return _spawnTimer;
                 EnemySpawn(_enemyToSpawn);
             }
         }
@@ -159,27 +167,27 @@ public class SpawnManager : MonoBehaviour
         {
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             Instantiate(_commonPowerUps[(Random.Range(0, 1))], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(7, 10));
+            yield return _commonPowerUpTimer;
         }
     }
     IEnumerator PowerUpRoutine()
     {
         while (stopSpawning == false)
         {
-            yield return new WaitForSeconds(Random.Range(7, 10));
+            yield return _powerUpTimer;
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             Instantiate(_powerUps[(Random.Range(0,2))],posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(10, 15));
+            yield return _powerUpTimer;
         }
     }
     IEnumerator RarePowerUpRoutine()
     {
         while (stopSpawning == false)
         {
-            yield return new WaitForSeconds(10f);
+            yield return _rarePowerUpTimer;
             Vector3 posToSpawn = new Vector3(Random.Range(-8, 8), 7, 0);
             Instantiate(_rarePowerUps[(Random.Range(0, 5))], posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(15, 20));
+            yield return _rarePowerUpTimer;
         }
     }
 }

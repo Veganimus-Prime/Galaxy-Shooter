@@ -5,7 +5,7 @@ using UnityEngine;
 public class Missile : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 5f;
+    private static float _speed = 5f;
     [SerializeField]
     private GameObject _closest;
     [SerializeField]
@@ -48,7 +48,7 @@ public class Missile : MonoBehaviour
             Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, _zRotation) * vectorToTarget;
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * _turnSpeed);
-            Debug.DrawRay(transform.position, _targetLocation);
+            //Debug.DrawRay(transform.position, _targetLocation);
         }
     }
     private GameObject FindClosestTarget()
@@ -69,21 +69,17 @@ public class Missile : MonoBehaviour
         }
         if (_closest != null)
         {
-            Debug.Log(_closest.name);
+            //Debug.Log(_closest.name);
 
         }
         return _closest;
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "PowerUp")
-        {
-            Destroy(this.gameObject);
-        }
-        else if (other.tag == "Player")
+        Destroy(gameObject);
+        if (other.tag == "Player")
         {
             Player.Instance.Damage();
-            Destroy(this.gameObject);
         }
     }
 }

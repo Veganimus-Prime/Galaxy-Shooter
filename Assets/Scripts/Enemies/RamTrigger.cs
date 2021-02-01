@@ -18,7 +18,6 @@ public class RamTrigger : MonoBehaviour
             case 0://ram
                 if (other.tag == "Player" || other.tag == "Laser")
                 {
-                    _enemy.ChangeID(2);
                     _enemy.thrusters.SetActive(true);
                     Destroy(this.gameObject);
                 }
@@ -32,7 +31,7 @@ public class RamTrigger : MonoBehaviour
             case 2://proximity
                 if (other.tag == "Laser")
                 {
-                    _enemy.speed = 8;
+                    //_enemy.Speed = 8;
                     _enemy.thrusters.SetActive(true);
                 }
                 break;
@@ -44,7 +43,7 @@ public class RamTrigger : MonoBehaviour
     {
         if (_triggerID == 2 && other.tag == "Laser")
         {
-            _enemy.speed = 4;
+            //_enemy.Speed = 4;
             _enemy.thrusters.SetActive(false);
         }
     }

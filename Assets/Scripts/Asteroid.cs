@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Asteroid : MonoBehaviour
 {
     [SerializeField]
@@ -28,7 +31,7 @@ public class Asteroid : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Laser" && _canDestroy == true)
         {

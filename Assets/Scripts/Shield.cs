@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class Shield : MonoBehaviour
 {
     private static Shield _instance;
@@ -21,9 +23,6 @@ public class Shield : MonoBehaviour
     {
         _instance = this;
     }
-    void Start()
-    {
-    }
     public void ShieldHit()
     {
         if (shieldHP <= 0)
@@ -36,8 +35,8 @@ public class Shield : MonoBehaviour
             switch (shieldHP)
             {
                 case 0:
-                    Player.Instance.isShieldActive = false;
-                    Player.Instance.powerUpShield = false;
+                    Player.Instance.IsShieldActive = false;
+                    Player.Instance.PowerUpShield = false;
                     Player.Instance._shield.SetActive(false);
                     break;
                 case 1:

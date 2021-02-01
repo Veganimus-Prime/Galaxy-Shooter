@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Player : MonoBehaviour
 {
     private static Player _instance;
@@ -16,28 +18,38 @@ public class Player : MonoBehaviour
             return _instance;
         }
     }
+    private enum FireMode
+    {
+        Normal, TripleShot, IceBeam, LocNar
+    }
     [SerializeField]
-    private int _ammoCount = 15;
-    [SerializeField]
+    private FireMode _fireMode;
+    [SerializeField][Range(0, 5)]
+    private int _ammoCount = 5;
+    [SerializeField][Range(0, 15)]
+    private int _ammoReserve = 15;
+    [SerializeField][Range(1, 10)]
     private int _speed;
-    private int _normalSpeed = 5;
-    private int _boostSpeed = 10;
+    private static int NormalSpeed { get; } = 5;
+    private static int BoostSpeed { get; } = 10;
     private bool _speedBoostOn = false;
     [SerializeField]
     private GameObject _laserPrefab, _tripleShotPrefab, _iceBeamPrefab, _homingPrefab;
     public GameObject _shield;
     private Vector3 _laserOffset = new Vector3(0, 0.5f, 0);
     private Vector3 _tripleShotOffset = new Vector3(0, -0.5f, 0);
-    private float _fireRate = 0.5f, _canFire = -1.0f;
+    private float FireRate { get; set; } = 0.5f;
+    private float CanFire { get; set; } = -1.0f;
     [SerializeField]
     private int _lives = 3;
-    [SerializeField]
+    [SerializeField][Range(0, 100)]
     private float _auxillaryCharge = 100f;
-    [SerializeField]
-    private bool _auxillaryEnabled = true;
-    public bool isShieldActive;
-    public bool isAuxShieldActive = false;
-    public bool powerUpShield = false;
+    
+    public bool AuxillaryEnabled { get; private set; } = true;
+    public bool IsShieldActive { get; set; } = false;
+    public bool AuxShieldOn { get; private set; } = false;
+    public bool PowerUpShield { get; set; } = false;
+    public bool MagetOn { get; private set; } = false;
     [SerializeField]
     [Header("SCORE")]
     private int _playerScore;
@@ -54,12 +66,14 @@ public class Player : MonoBehaviour
     private AudioClip _powerUpClip;
     [SerializeField]
     private AudioClip _explosionClip;
-    public bool _magnetOn = false;
     private AudioSource _audio;
-    public int _fireMode = 0;
+    private WaitForSeconds _defaultCoolDown;
+    private WaitForSeconds _reloadCoolDown;
     private void Awake()
     {
         _instance = this;
+        _defaultCoolDown = new WaitForSeconds(5f);
+        _reloadCoolDown = new WaitForSeconds(2f);
     }
 
     void Start()
@@ -74,15 +88,11 @@ public class Player : MonoBehaviour
         Thrusters();
         Magnet();
         AuxShield();
-        FireMode();
-        if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
+        ChangeFireMode();
+        Reload();
+        if (Input.GetKeyDown(KeyCode.Space) && Time.time > CanFire)
         {
             Shoot();
-        }
-        
-        if (_ammoCount > 15)
-        {
-            _ammoCount = 15;
         }
     }
     void Movement()
@@ -91,15 +101,15 @@ public class Player : MonoBehaviour
         float vInput = Input.GetAxis("Vertical");
         Vector3 direction = new Vector3(hInput, vInput, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
-        ScreenWrap();
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -4f, 0));
     }
-    void FireMode()
+    void ChangeFireMode()
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
             _fireMode++;
         }
-        if(_fireMode >3)
+        if((int)_fireMode >3)
         {
             _fireMode = 0;
         }
@@ -116,9 +126,9 @@ public class Player : MonoBehaviour
         {
             _auxillaryCharge = 100;
         }
-        if (_auxillaryCharge <= 0 && _auxillaryEnabled == true)
+        if (_auxillaryCharge <= 0 && AuxillaryEnabled == true)
         {
-            _auxillaryEnabled = false;
+            AuxillaryEnabled = false;
             UIManager.Instance.auxillaryCharging = true;
             StartCoroutine(AuxillaryCooldown());
         }
@@ -126,56 +136,76 @@ public class Player : MonoBehaviour
     void Magnet()
     {
         Auxillary();
-        if (Input.GetKey(KeyCode.C) && _auxillaryEnabled == true)
+        if (Input.GetKey(KeyCode.C) && AuxillaryEnabled == true)
         {
-            _magnetOn = true;
+            MagetOn = true;
             _auxillaryCharge-=0.5f;
             _audio.PlayOneShot(_magnetClip);
         }
         else
         {
-            _magnetOn = false;
+            MagetOn = false;
         }
     }
     void Thrusters()
     {
         Auxillary();
        
-        if (Input.GetKey(KeyCode.LeftShift) && _auxillaryEnabled == true)
+        if (Input.GetKey(KeyCode.LeftShift) && AuxillaryEnabled == true)
         {
-            _speed = _boostSpeed;
+            _speed = BoostSpeed;
             _auxillaryCharge -= 0.5f;
         }
         else if (_speedBoostOn == false)
         {
-            _speed = _normalSpeed;
+            _speed = NormalSpeed;
         }
        
     }
     void AuxShield()
     {
         Auxillary();
-        if (Input.GetKey(KeyCode.RightShift) && _auxillaryEnabled == true)
+        if (Input.GetKey(KeyCode.RightShift) && AuxillaryEnabled == true)
         {
-            isAuxShieldActive = true;
+            AuxShieldOn = true;
             _shield.SetActive(true);
             _auxillaryCharge -= 0.5f;
         }
-        else if(powerUpShield == false)
+        else if(PowerUpShield == false)
         {
-            isAuxShieldActive = false;
+            AuxShieldOn = false;
             _shield.SetActive(false);
+        }
+    }
+    void Reload()
+    {
+        if (_ammoCount > 5)
+        {
+            _ammoCount = 5;
+        }
+        if (_ammoReserve > 15)
+        {
+            _ammoReserve = 15;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (_ammoCount == 0 && _ammoReserve >= 5)
+            {
+                StartCoroutine(ReloadTimer());
+            }
+            else
+                return;
         }
     }
    
     void Shoot()
     {
-        _canFire = Time.time + _fireRate;
+        CanFire = Time.time + FireRate;
         if (_ammoCount > 0)
         {
             _ammoCount--;
             UIManager.Instance.UpdateAmmoCount(_ammoCount);
-            switch (_fireMode)
+            switch ((int)_fireMode)
             {
                 case 0:
                     Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
@@ -194,7 +224,6 @@ public class Player : MonoBehaviour
                     _audio.PlayOneShot(_homingClip, 10);
                     break;
             }
-            
         }
         else
         {
@@ -203,7 +232,7 @@ public class Player : MonoBehaviour
     }
     public void Damage()
     {
-        if (isShieldActive == false && isAuxShieldActive == false )
+        if (IsShieldActive == false && AuxShieldOn == false )
         {
             _lives--;
             CameraShake.Instance.TriggerShake();
@@ -212,7 +241,7 @@ public class Player : MonoBehaviour
                 case 0:
                     _audio.PlayOneShot(_explosionClip);
                     Instantiate(_explosion, transform.position, Quaternion.identity);
-                    Destroy(this.gameObject);
+                    Destroy(gameObject);
                     SpawnManager.Instance.OnPlayerDeath();
                     break;
                 case 1:
@@ -250,26 +279,26 @@ public class Player : MonoBehaviour
         {
             case 0://TripleShot
                 _audio.PlayOneShot(_powerUpClip);
-                _fireMode = 1;
+                _fireMode = FireMode.TripleShot;
                 StartCoroutine(PowerUpCooldown(0));
                 break;
             case 1://SpeedBoost
                 _audio.PlayOneShot(_powerUpClip);
-                _speed = _boostSpeed;
+                _speed = BoostSpeed;
                 _speedBoostOn = true;
                 StartCoroutine(PowerUpCooldown(1));
                 break;
             case 2://Shield
                 _audio.PlayOneShot(_powerUpClip);
-                powerUpShield = true;
-                isShieldActive = true;
+                PowerUpShield = true;
+                IsShieldActive = true;
                 _shield.SetActive(true);
                 Shield.Instance.shieldHP = 4;
                 Shield.Instance.ShieldHit();
                 break;
             case 3://IceBeam
                 _audio.PlayOneShot(_powerUpClip);
-                _fireMode = 2;
+                _fireMode = FireMode.IceBeam;
                 StartCoroutine(PowerUpCooldown(0));
                 break;
             case 4: //+1 Life
@@ -284,17 +313,22 @@ public class Player : MonoBehaviour
                 }
                 break;
             case 5://Ammo
-                if (_ammoCount < 15)
+                if (_ammoReserve < 15)
                 {
-                    _ammoCount += 5;
+                    _audio.PlayOneShot(_powerUpClip);
+                    _ammoReserve += 5;
                 }
-                UIManager.Instance.UpdateAmmoCount(_ammoCount);
+                else if(_ammoReserve >15)
+                {
+                    return;
+                }
+                UIManager.Instance.UpdateReserveAmmo(_ammoReserve);
                 break;
             case 6://Sabotage
                 _audio.PlayOneShot(_explosionClip);
-                if (isShieldActive == true)
+                if (IsShieldActive == true)
                 {
-                    isShieldActive = false;
+                    IsShieldActive = false;
                     _shield.SetActive(false);
                     Shield.Instance.shieldHP = 0;
                 }
@@ -305,47 +339,46 @@ public class Player : MonoBehaviour
                 break;
             case 7://LOC-NAR
                 _audio.PlayOneShot(_powerUpClip);
-                _fireMode = 3;
+                _fireMode = FireMode.LocNar;
                 StartCoroutine(PowerUpCooldown(0));
                 break;
             default:
-                Debug.Log("Default Power Up ID");
+                //Debug.Log("Default Power Up ID");
                 break;
         }
     }
-    void ScreenWrap()
+    public void ScreenWrap(int position)
     {
-        if (transform.position.x > 9.3f)
+        switch(position)
         {
-            transform.position = new Vector3(-9.3f, transform.position.y, 0);
+            case 0:
+                transform.position = new Vector3(-9.3f, transform.position.y, 0);
+                break;
+            case 1:
+                transform.position = new Vector3(9.3f, transform.position.y, 0);
+                break;
         }
-        else if (transform.position.x < -9.3f)
-        {
-            transform.position = new Vector3(9.3f, transform.position.y, 0);
-        }
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y,-4f, 0));
-
     }
-    public void AddScore(int points)
+    /*public void AddScore(int points)
     {
         _playerScore += points;
-        UIManager.Instance.UpdateScore(_playerScore);
-    }
+        UIManager.currentScore = _playerScore;
+    }*/
     IEnumerator PowerUpCooldown(int powerUpID)
     {
         switch (powerUpID)
         {
             case 0://Fire Mode
-                yield return new WaitForSeconds(5f);
+                yield return _defaultCoolDown;
                 _fireMode = 0;
                 break;
             case 1://SpeedBoost
-                yield return new WaitForSeconds(5f);
-                _speed = _normalSpeed;
+                yield return _defaultCoolDown;
+                _speed = NormalSpeed;
                 _speedBoostOn = false;
                 break;
             default:
-                Debug.Log("Default Power Up ID");
+                //Debug.Log("Default Power Up ID");
                 break;
         }
     }
@@ -353,14 +386,22 @@ public class Player : MonoBehaviour
     {
         while (_auxillaryCharge < 100)
         {
-            yield return new WaitForSeconds(5f);
+            yield return _defaultCoolDown;
             _auxillaryCharge += 10;
             UIManager.Instance.UpdateAuxillaryCharge(_auxillaryCharge);
         }
         if(_auxillaryCharge ==100)
         {
             UIManager.Instance.auxillaryCharging = false;
-            _auxillaryEnabled = true;
+            AuxillaryEnabled = true;
         }
+    }
+    IEnumerator ReloadTimer()
+    {
+        yield return _reloadCoolDown;
+        _ammoCount += 5;
+        _ammoReserve -= 5;
+        UIManager.Instance.UpdateAmmoCount(_ammoCount);
+        UIManager.Instance.UpdateReserveAmmo(_ammoReserve);
     }
 }

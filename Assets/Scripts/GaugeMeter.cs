@@ -27,12 +27,6 @@ public class GaugeMeter : MonoBehaviour
         _rt = GetComponent<RectTransform>();
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
     public void UpdateGauge(float length)
     {
         _rt.sizeDelta = new Vector2(_rt.sizeDelta.x, length);

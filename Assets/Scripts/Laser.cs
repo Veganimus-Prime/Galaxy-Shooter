@@ -1,13 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
+[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SpriteRenderer))]
 public class Laser : MonoBehaviour
 {
+    private enum LaserID
+    {
+        Player, Enemy
+    }
     [SerializeField]
-    private float _speed = 8f;
+    private LaserID _laserID;
+    private enum MoveID
+    {
+        Normal, Backfire
+    }
     [SerializeField]
-    private int _laserID, _moveID;
+    private MoveID _moveID;
+    [SerializeField]
+    private static float _speed = 8f;
     [SerializeField]
     private GameObject _explosion;
     void Start()
@@ -20,7 +34,7 @@ public class Laser : MonoBehaviour
     }
     void Movement()
     {
-        switch (_moveID)
+        switch ((int)_moveID)
         {
             case 0://Normal
                 transform.Translate(Vector3.up * _speed * Time.deltaTime);
@@ -30,37 +44,40 @@ public class Laser : MonoBehaviour
                 break;
         }
     }
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
-        switch (_laserID)
+        switch ((int)_laserID)
         {
             case 0://Player
                 if (other.tag == "Enemy" || other.tag == "Asteroid")
                 {
-                    Destroy(this.gameObject);
-                    Instantiate(_explosion, transform.position, Quaternion.identity);
+                    LaserExplode();
                 }
                 break;
             case 1://Enemy
                 if (other.tag == "Player")
                 {
-                    Destroy(this.gameObject);
-                    Instantiate(_explosion, transform.position, Quaternion.identity);
+                    LaserExplode();
                     Player.Instance.Damage();
                 }
                 else if (other.tag == "PowerUp")
                 {
-                    Destroy(this.gameObject);
-                    Instantiate(_explosion, transform.position, Quaternion.identity);
+                    LaserExplode();
                 }
                 break;
         }
     }
+    public void LaserExplode()
+    {
+        Destroy(gameObject);
+        Instantiate(_explosion, transform.position, Quaternion.identity);
+    }
+   
     IEnumerator LaserDestruct()
     {
         yield return new WaitForSeconds(5f);
-        Destroy(this.gameObject);
-        if (this.transform.parent != null)
+        Destroy(gameObject);
+        if (transform.parent != null)
         {
             Destroy(transform.parent.gameObject);
         }

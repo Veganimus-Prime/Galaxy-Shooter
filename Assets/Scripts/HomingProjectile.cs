@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class HomingProjectile : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 5f;
+    private static float _speed = 5f;
     [SerializeField]
     private int _lives = 2;
     [SerializeField]
@@ -69,7 +73,7 @@ public class HomingProjectile : MonoBehaviour
         }
         if (_closest != null)
         {
-            Debug.Log(_closest.name);
+            //Debug.Log(_closest.name);
            
         }
         return _closest;
