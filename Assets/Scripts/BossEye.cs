@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(CircleCollider2D))]
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(SphereCollider))]
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(SpriteRenderer))]
 public class BossEye : MonoBehaviour
 {
@@ -46,21 +46,21 @@ public class BossEye : MonoBehaviour
             Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, _zRotation) * vectorToTarget;
             Quaternion targetRotation = Quaternion.LookRotation(Vector3.forward, rotatedVectorToTarget);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * _turnSpeed);
-            Debug.DrawRay(transform.position, _targetLocation);
+            //Debug.DrawRay(transform.position, _targetLocation);
         }
         else
         {
             return;
         }
     }
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player"&& isPaired==true)
         {
             _myPos = this.transform.position;
         }
     }
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player" && isPaired == true)
         {

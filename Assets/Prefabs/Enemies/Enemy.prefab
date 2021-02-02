@@ -67,7 +67,7 @@ MonoBehaviour:
   _backFireLaser: {fileID: 0}
   _enemyShield: {fileID: 8242467459955185653, guid: 8ec431b8eef646a4196021d97652089d,
     type: 3}
-  _explosion: {fileID: 2943400665140209504, guid: 281dee420b58660428180f461f601ec4,
+  _explosion: {fileID: 3618151420856934090, guid: c6e5e17c98fbc2b4e9082f985d7bb494,
     type: 3}
   _laserOffset: {x: 0, y: 0.5, z: 0}
   _zRotation: 0

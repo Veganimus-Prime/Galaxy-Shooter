@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5216606996382145100}
   - component: {fileID: 5216606996382145101}
   - component: {fileID: 5216606996382145090}
-  - component: {fileID: 1169873894190575603}
+  - component: {fileID: 9057136403803506023}
   m_Layer: 12
   m_Name: IceBeam
   m_TagString: Ice Beam
@@ -95,33 +95,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06de1f8d5bb7724e89e9c3008befa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 8
   _laserID: 0
+  _moveID: 0
   _explosion: {fileID: 3560289977455468647, guid: 76c9408f35797774595a64d05bf445d5,
     type: 3}
---- !u!61 &1169873894190575603
-BoxCollider2D:
+--- !u!65 &9057136403803506023
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5216606996382145091}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.01916489, y: 0.03832972}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 3}
-    newSize: {x: 1, y: 3}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.47615957, y: 2.9233406}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.48935875, y: 2.9214401, z: 0.2}
+  m_Center: {x: -0.0065467507, y: 0.039280057, z: 0}

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5513624561566616940}
   - component: {fileID: 5513624561566616941}
   - component: {fileID: 5513624561566616943}
-  - component: {fileID: 2836503651989200229}
-  - component: {fileID: 1646202262277083867}
+  - component: {fileID: 5052953747725616725}
+  - component: {fileID: 3803202143589987116}
   m_Layer: 11
   m_Name: Boss
   m_TagString: Enemy
@@ -98,45 +98,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3476ccc959d65b54ca0832fb1010b519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 50
-  stopPos: {x: 0, y: 0, z: 0}
---- !u!58 &2836503651989200229
-CircleCollider2D:
+--- !u!54 &5052953747725616725
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5513624561566616946}
-  m_Enabled: 1
-  m_Density: 1
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &3803202143589987116
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513624561566616946}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.04001957, y: 0.95}
+  m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.54
---- !u!50 &1646202262277083867
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513624561566616946}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Radius: 2.4702036
+  m_Center: {x: 0.00000026195963, y: 0.8100001, z: 0}
 --- !u!1 &5513624561605383350
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,9 +137,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5513624561605383345}
   - component: {fileID: 5513624561605383347}
-  - component: {fileID: 5513624561605383341}
-  - component: {fileID: 5513624561605383346}
   - component: {fileID: 5513624561605383344}
+  - component: {fileID: 3353888707303754551}
+  - component: {fileID: 6474625201765660163}
   m_Layer: 11
   m_Name: Boss_eye_right
   m_TagString: Detector
@@ -221,43 +211,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5513624561605383341
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513624561605383350}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &5513624561605383346
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513624561605383350}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.0000009536743, y: 0}
-  serializedVersion: 2
-  m_Radius: 15
 --- !u!114 &5513624561605383344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,12 +223,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a39d615be0dee45bfec7485e98b4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnSpeed: 200
   _zRotation: 0
   isPaired: 1
   _pairedObj: {fileID: 5513624563206727544}
   _bossProjectile: {fileID: 979121554216708804, guid: 48117f11e53b1dd479cfceee81782f6d,
     type: 3}
+--- !u!135 &3353888707303754551
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513624561605383350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12.5
+  m_Center: {x: 0.22225805, y: 0, z: 0}
+--- !u!54 &6474625201765660163
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513624561605383350}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5513624563206727544
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,9 +267,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5513624563206727547}
   - component: {fileID: 5513624563206727546}
-  - component: {fileID: 5513624563206727543}
-  - component: {fileID: 5513624563206727540}
   - component: {fileID: 5513624563206727541}
+  - component: {fileID: 8914516386273325609}
+  - component: {fileID: 4906799460997364752}
   m_Layer: 11
   m_Name: Boss_eye_left
   m_TagString: Detector
@@ -360,43 +341,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5513624563206727543
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513624563206727544}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &5513624563206727540
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5513624563206727544}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0000009725013, y: 0}
-  serializedVersion: 2
-  m_Radius: 15
 --- !u!114 &5513624563206727541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,9 +353,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a39d615be0dee45bfec7485e98b4ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnSpeed: 200
   _zRotation: 0
   isPaired: 1
   _pairedObj: {fileID: 5513624561605383350}
   _bossProjectile: {fileID: 979121554216708804, guid: 48117f11e53b1dd479cfceee81782f6d,
     type: 3}
+--- !u!54 &8914516386273325609
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513624563206727544}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &4906799460997364752
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513624563206727544}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 12.5
+  m_Center: {x: -0.0000009536743, y: 0, z: 0}

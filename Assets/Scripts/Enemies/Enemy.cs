@@ -192,10 +192,10 @@ public class Enemy: MonoBehaviour
                 thrusters.SetActive(false);
                 }
                 Speed = 0;
-                Instantiate(_explosion, transform.position - _laserOffset, _enemyRot);
+                Destroy(this.gameObject);
+                Instantiate(_explosion, transform.position, Quaternion.identity);
                 //_sprite.color = Color.white;
                 _audio.PlayOneShot(_explosionClip);
-                Destroy(this.gameObject);
                 UIManager.Instance.UpdateScore(_scoreValue);
                 SpawnManager.Instance.EnemyKilled();
             }

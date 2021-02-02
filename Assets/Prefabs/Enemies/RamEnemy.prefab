@@ -204,8 +204,8 @@ GameObject:
   m_Component:
   - component: {fileID: 150581481691298476}
   - component: {fileID: 180580425652945484}
-  - component: {fileID: 5370609008226397450}
-  - component: {fileID: 8263597787740145422}
+  - component: {fileID: 2488677913966136723}
+  - component: {fileID: 602338258717174371}
   m_Layer: 11
   m_Name: RamEnemy
   m_TagString: Enemy
@@ -245,7 +245,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveID: 0
   _enemyType: 3
-  speed: 4
+  _enemySprite:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   thrusters: {fileID: 71272471665770}
   _lives: 1
   _scoreValue: 10
@@ -255,7 +260,7 @@ MonoBehaviour:
     type: 3}
   _backFireLaser: {fileID: 0}
   _enemyShield: {fileID: 839640849014565662}
-  _explosion: {fileID: 2943400665140209504, guid: 281dee420b58660428180f461f601ec4,
+  _explosion: {fileID: 3618151420856934090, guid: c6e5e17c98fbc2b4e9082f985d7bb494,
     type: 3}
   _laserOffset: {x: 0, y: 0.5, z: 0}
   _zRotation: 0
@@ -267,53 +272,35 @@ MonoBehaviour:
   targetPowerUp:
     serializedVersion: 2
     m_Bits: 8192
---- !u!61 &5370609008226397450
-BoxCollider2D:
+--- !u!65 &2488677913966136723
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2629655288130663451}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0067821145, y: 0.027128339}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.6375171, y: 2.0851352}
-  m_EdgeRadius: 0
---- !u!50 &8263597787740145422
-Rigidbody2D:
-  serializedVersion: 4
+  m_Size: {x: 1.7830584, y: 2.2615933, z: 1}
+  m_Center: {x: -0.021751523, y: -0.00000023841858, z: 0}
+--- !u!54 &602338258717174371
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2629655288130663451}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  serializedVersion: 2
   m_Mass: 1
-  m_LinearDrag: 0
+  m_Drag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
   m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5054669587730203958
 GameObject:
   m_ObjectHideFlags: 0
